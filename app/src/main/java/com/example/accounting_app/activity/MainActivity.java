@@ -1,13 +1,10 @@
 package com.example.accounting_app.activity;
 
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.RadioButton;
-
 import com.example.accounting_app.R;
 import com.example.accounting_app.adapter.adapter_mainactivity;
 import com.example.accounting_app.fragment.fragment_bill;
@@ -15,9 +12,8 @@ import com.example.accounting_app.fragment.fragment_home;
 import com.example.accounting_app.fragment.fragment_statements;
 import com.example.accounting_app.fragment.fragment_wish;
 import com.example.accounting_app.listener.listener_mainactivity;
-
 import java.util.ArrayList;
-import java.util.List;
+
 
 /**
  * @Creator cetwag, yuebanquan
@@ -26,11 +22,13 @@ import java.util.List;
  * @Description 底部导航栏对碎片控制的切换
  */
 
+//cetwag的分支
+
 public class MainActivity extends AppCompatActivity {
 
     //下面创建三个华滑动切换四个Fragment碎片必要的组件
     public ViewPager viewpager;
-    public List<Fragment> pages = new ArrayList<>();
+    public ArrayList<Fragment> pages = new ArrayList<>();
 
     //声明底部导航栏的五个选择按钮
     public RadioButton rdb_home;
@@ -43,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
     listener_mainactivity listener;
     adapter_mainactivity adapter;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,8 +48,10 @@ public class MainActivity extends AppCompatActivity {
 
         init();//找到声明的控件
 
+        //该类对应的监听器
         listener.listener_MainActivity_vp();
         listener.listener_MainActivity_rdb();
+        //该类对应的适配器
         adapter.adapter_MainActivity();
 
     }
@@ -76,5 +75,4 @@ public class MainActivity extends AppCompatActivity {
         listener = new listener_mainactivity(this);
         adapter = new adapter_mainactivity(this);
     }
-
 }

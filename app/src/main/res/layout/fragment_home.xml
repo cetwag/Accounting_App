@@ -14,8 +14,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="210dp"
-            android:layout_weight="3.5"
+            android:layout_height="0dp"
+            android:layout_weight="2.5"
             android:background="#FF9900"
             android:orientation="vertical">
 
@@ -26,8 +26,8 @@
 
                 <Button
                     android:id="@+id/btn_slide"
-                    android:layout_width="50dp"
-                    android:layout_height="55dp"
+                    android:layout_width="40dp"
+                    android:layout_height="45dp"
                     android:background="@drawable/ic_dehaze_black_24dp" />
 
                 <ImageButton
@@ -51,7 +51,7 @@
             <TextView
                 android:id="@+id/tv_net_assets"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="50dp"
                 android:gravity="center"
                 android:text="@string/fragment_home_tv_net_assets"
                 android:textColor="#FFFFFF"
@@ -98,12 +98,13 @@
                 android:layout_marginStart="10dp"
                 android:text="@string/fragment_home_tv_account_assets"
                 android:textColor="#000000"
-                android:textSize="25sp" />
+                android:textSize="20sp" />
         </LinearLayout>
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="470dp"
+            android:layout_height="0dp"
+            android:layout_weight="8.5"
             android:background="#CCCCCC"
             android:scrollbars="none">
 

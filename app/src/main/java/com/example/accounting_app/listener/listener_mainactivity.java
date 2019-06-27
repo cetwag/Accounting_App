@@ -13,18 +13,28 @@ import com.example.accounting_app.activity.MainActivity;
  */
 public class listener_mainactivity {
 
-    MainActivity mainactivity;
+    MainActivity mainactivity;//声明对应类的对象,通过构造函数传参传入赋值，否则无法获取对应的控件
 
+
+    /**
+     * @parameter
+     * @description 编写两个有参和无参构造函数，用于获取对应类的控件
+     * @Time 2019/6/27 22:43
+     */
     public listener_mainactivity() {
-
     }
 
     public listener_mainactivity(MainActivity m) {
         mainactivity = m;
     }
 
-    public void listener_MainActivity_vp() {
 
+    /**
+     * @parameter
+     * @description MainActivity中的viewpaerd的监听器
+     * @Time 2019/6/27 22:44
+     */
+    public void listener_MainActivity_vp() {
         mainactivity.viewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
@@ -57,7 +67,12 @@ public class listener_mainactivity {
         });
     }
 
-    public void listener_MainActivity_rdb(){
+    /**
+     * @parameter
+     * @description MainActivity中底部导航栏按钮的监听器
+     * @Time 2019/6/27 22:44
+     */
+    public void listener_MainActivity_rdb() {
         mainactivity.rdb_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,5 +98,6 @@ public class listener_mainactivity {
             }
         });
     }
+
 
 }

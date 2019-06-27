@@ -1,9 +1,9 @@
 package com.example.accounting_app.adapter;
 
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import com.example.accounting_app.activity.MainActivity;
 
@@ -14,11 +14,15 @@ import com.example.accounting_app.activity.MainActivity;
  * @Time 2019.6.27
  * @Description MainActivity内控件的适配器
  */
-public class adapter_mainactivity extends AppCompatActivity {
+public class adapter_mainactivity {
 
-    MainActivity mainactivity;
+    MainActivity mainactivity;//声明对应类的对象,通过构造函数传参传入赋值，否则无法获取对应的控件
 
-
+    /**
+     * @parameter
+     * @description  编写两个有参和无参构造函数，用于获取对应类的控件
+     * @Time 2019/6/27 22:53
+     */
     public adapter_mainactivity() {
     }
 
@@ -33,7 +37,7 @@ public class adapter_mainactivity extends AppCompatActivity {
      * @Time 2019/6/27 15:05
      */
     public void adapter_MainActivity() {
-        mainactivity.viewpager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
+        mainactivity.viewpager.setAdapter(new FragmentPagerAdapter(mainactivity.getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int i) {
                 //确定返回哪个页面
@@ -47,5 +51,7 @@ public class adapter_mainactivity extends AppCompatActivity {
             }
         });
     }
+
+
 
 }
