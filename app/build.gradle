@@ -17,6 +17,10 @@ android {
         }
     }
 }
+repositories {
+    //第三方饼状图库
+    maven { url 'https://jitpack.io' }
+}
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -25,4 +29,15 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    //屏幕适配库
+    implementation 'me.yatoooon:screenadaptation:1.1.1'
+    //这是一款仿iOS的PickerView控件，有时间选择器和选项选择器
+    implementation 'com.contrarywind:Android-PickerView:4.1.8'
+    //ORM数据库——LitePal
+    implementation 'org.litepal.android:java:3.0.0'
+    //第三方饼状图库
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+    //第三方侧滑删除库
+    implementation 'com.github.mcxtzhang:SwipeDelMenuLayout:V1.3.0'
+
 }

@@ -4,8 +4,9 @@ buildscript {
     repositories {
         google()
         jcenter()
-        
-    }
+        //第三方侧滑删除库
+        maven { url "https://jitpack.io"}
+        }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.4.1'
         
