@@ -5,6 +5,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.RadioButton;
+
 import com.example.accounting_app.R;
 import com.example.accounting_app.adapter.adapter_mainactivity;
 import com.example.accounting_app.fragment.fragment_bill;
@@ -12,6 +13,7 @@ import com.example.accounting_app.fragment.fragment_home;
 import com.example.accounting_app.fragment.fragment_statements;
 import com.example.accounting_app.fragment.fragment_wish;
 import com.example.accounting_app.listener.listener_mainactivity;
+
 import java.util.ArrayList;
 
 
@@ -21,19 +23,6 @@ import java.util.ArrayList;
  * @Time 2019.6.27
  * @Description 底部导航栏对碎片控制的切换
  */
-
-//cetwag的分支
-
-
-
-
-//yuebanquan
-
-
-
-
-//yuebanquan
-    //111
 
 
 public class MainActivity extends AppCompatActivity {
