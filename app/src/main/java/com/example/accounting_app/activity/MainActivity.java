@@ -26,6 +26,11 @@ import java.util.List;
  * @Description 底部导航栏对碎片控制的切换
  */
 
+
+
+
+//yuebanquan
+
 public class MainActivity extends AppCompatActivity {
 
     //下面创建三个华滑动切换四个Fragment碎片必要的组件
