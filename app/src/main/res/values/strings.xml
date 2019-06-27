@@ -1,3 +1,59 @@
 <resources>
-    <string name="app_name">Accounting_App</string>
+    <string name="app_name">Terminal_work</string>
+
+    <!--activity_main布局中的字符串资源-->
+    <string name="activity_main_home_rdb_name">首页</string>
+    <string name="activity_main_bill_rdb_name">账单</string>
+    <string name="activity_main_wish_rdb_name">心愿</string>
+    <string name="activity_main_statements_rdb_name">报表</string>
+
+    <!--fragment_home布局里-->
+    <string name="fragment_home_tv_location">待定位..</string>
+    <string name="fragment_home_tv_net_assets">净资产￥0.00</string>
+    <string name="fragment_home_tv_all_assets">总资产￥0.00</string>
+    <string name="fragment_home_tv_negative_assets">负资产￥0.00</string>
+    <string name="fragment_home_tv_account_assets">账户资产</string>
+
+    <!--fragment_bill布局里-->
+    <string name="fragment_bill_tv_title">账单</string>
+    <string name="fragment_bill_tv_time_select">请选择日期▼</string>
+    <string name="fragment_bill_tv_screen">筛选</string>
+    <string name="fragment_bill_tv_bill_details">账单明细</string>
+    <string name="fragment_bill_tv_select_income_pay">筛选收支类型</string>
+    <string name="fragment_bill_rdb_select_total_income">全部收入</string>
+    <string name="fragment_bill_rdb_select_total_pay">全部支出</string>
+    <string name="fragment_bill_tv_select_classification">筛选分类</string>
+    <string name="fragment_bill_tv_pay">支出</string>
+    <string name="fragment_bill_cxb_food">餐饮</string>
+    <string name="fragment_bill_cxb_shop">购物</string>
+    <string name="fragment_bill_cxb_house">住房</string>
+    <string name="fragment_bill_cxb_travel">旅行</string>
+    <string name="fragment_bill_cxb_play">娱乐</string>
+    <string name="fragment_bill_cxb_car">汽车</string>
+    <string name="fragment_bill_cxb_child">育儿</string>
+    <string name="fragment_bill_cxb_hospital">医疗</string>
+    <string name="fragment_bill_other">其它</string>
+    <string name="fragment_bill_tv_income">收入</string>
+    <string name="fragment_bill_cxb_wages">工资</string>
+    <string name="fragment_bill_cxb_reward">奖金</string>
+    <string name="fragment_bill_cxb_interest">利息收入</string>
+    <string name="fragment_bill_cxb_investment">投资收入</string>
+    <string name="fragment_bill_cxb_unexpected">意外所得</string>
+    <string name="fragment_bill_cxb_reimbursement">可报销</string>
+    <string name="fragment_bill_cxb_internal_transfer">内部转账</string>
+    <string name="fragment_bill_cxb_deposit">存款</string>
+    <string name="fragment_bill_cxb_collect_debts">收债</string>
+    <string name="fragment_bill_cxb_return_credit_card">还信用卡</string>
+    <string name="fragment_bill_btn_reset">重置</string>
+    <string name="fragment_bill_btn_finish">完成</string>
+
+    <!--fragment_wish布局里-->
+    <string name="fragment_wish_tv_title_text">一点一滴，为梦想存钱</string>
+    <string name="fragment_wish_btn_save_money">为梦想存钱</string>
+    <string name="fragment_wish_btn_wish_list">查看我的梦想列表</string>
+
+    <!--fragment_statements-->
+    <string name="fragment_wish_tv_title">报表</string>
+    <string name="fragment_wish_tv_time_select">请选择日期▼</string>
+
 </resources>
