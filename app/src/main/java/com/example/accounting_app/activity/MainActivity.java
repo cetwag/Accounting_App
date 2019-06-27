@@ -12,6 +12,7 @@ import com.example.accounting_app.fragment.fragment_home;
 import com.example.accounting_app.fragment.fragment_statements;
 import com.example.accounting_app.fragment.fragment_wish;
 import com.example.accounting_app.listener.listener_mainactivity;
+
 import java.util.ArrayList;
 
 
@@ -23,6 +24,12 @@ import java.util.ArrayList;
  */
 
 //cetwag的分支
+
+
+
+
+//yuebanquan
+
 
 public class MainActivity extends AppCompatActivity {
 
