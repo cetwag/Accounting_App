@@ -24,6 +24,11 @@ import java.util.ArrayList;
 
 //cetwag的分支
 
+
+
+
+//yuebanquan
+
 public class MainActivity extends AppCompatActivity {
 
     //下面创建三个华滑动切换四个Fragment碎片必要的组件
@@ -75,4 +80,5 @@ public class MainActivity extends AppCompatActivity {
         listener = new listener_mainactivity(this);
         adapter = new adapter_mainactivity(this);
     }
+
 }
