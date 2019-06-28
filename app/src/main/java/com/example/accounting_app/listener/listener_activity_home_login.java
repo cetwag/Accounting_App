@@ -8,10 +8,10 @@ import com.example.accounting_app.activity.activity_home_login;
 import com.example.accounting_app.activity.activity_home_register;
 
 /**
- * @Creator
- * @Version
- * @Time
- * @Description
+ * @Creator cetwag yuebanquan
+ * @Version V2.0.0
+ * @Time 2019.6.28
+ * @Description 登录activity的监听类
  */
 public class listener_activity_home_login implements View.OnClickListener {
     activity_home_login activity_home_login;
@@ -37,6 +37,11 @@ public class listener_activity_home_login implements View.OnClickListener {
         activity_home_login.btn_goto_register.setOnClickListener(this);
     }
 
+    /**
+     * @parameter
+     * @description 实现View.onClickListener接口, 可以采用switch case简化setOnClickListener
+     * @Time 2019/6/28 15:53
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
