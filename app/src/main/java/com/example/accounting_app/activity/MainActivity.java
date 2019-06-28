@@ -2,8 +2,10 @@ package com.example.accounting_app.activity;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.RadioButton;
 
 import com.example.accounting_app.R;
@@ -13,6 +15,7 @@ import com.example.accounting_app.fragment.fragment_home;
 import com.example.accounting_app.fragment.fragment_statements;
 import com.example.accounting_app.fragment.fragment_wish;
 import com.example.accounting_app.listener.listener_mainactivity;
+import com.yatoooon.screenadaptation.ScreenAdapterTools;
 
 import java.util.ArrayList;
 
@@ -42,10 +45,14 @@ public class MainActivity extends AppCompatActivity {
     listener_mainactivity listener;
     adapter_mainactivity adapter;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ScreenAdapterTools.getInstance().reset(this);//如果希望android7.0分屏也适配的话,加上这句
+        ScreenAdapterTools.getInstance().loadView(getWindow().getDecorView());//屏幕适配函数
+
 
         init();//找到声明的控件
 
@@ -62,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
      * @description findViewById等控件的初始化
      * @Time 2019/6/27 14:27
      */
-    public void init() {
+    void init() {
         viewpager = findViewById(R.id.ViewPager);
         rdb_home = findViewById(R.id.rdb_home);
         rdb_bill = findViewById(R.id.rdb_bill);

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="450dp"
+    android:background="@drawable/exchang_mongey_bak"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="40dp"
+            android:layout_height="match_parent" />
+
+        <ImageButton
+            android:id="@+id/Imgbtn_up_rate"
+            android:layout_width="80dp"
+            android:layout_height="50dp"
+            android:background="@drawable/cny_circle" />
+
+        <EditText
+            android:id="@+id/edt_up"
+            android:layout_width="170dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/line_block"
+            android:hint="@string/activity_home_rate_up_rate"
+            android:inputType="numberDecimal"
+            android:maxLines="1"
+            android:textColorHint="#000000" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:background="@drawable/ic_swap_vert_black_24dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="40dp"
+            android:layout_height="match_parent" />
+
+        <ImageButton
+            android:id="@+id/Imgbtn_down_rate"
+            android:layout_width="80dp"
+            android:layout_height="50dp"
+            android:background="@drawable/usd_circle" />
+
+        <EditText
+            android:id="@+id/edt_down"
+            android:layout_width="170dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/line_block"
+            android:hint="@string/activity_home_rate_down_rate"
+            android:inputType="numberDecimal"
+            android:maxLines="1"
+            android:textColorHint="#000000" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+</LinearLayout>

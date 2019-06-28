@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Terminal_work</string>
+    <string name="app_name">小账本</string>
 
     <!--activity_main布局中的字符串资源-->
     <string name="activity_main_home_rdb_name">首页</string>
@@ -52,8 +52,58 @@
     <string name="fragment_wish_btn_save_money">为梦想存钱</string>
     <string name="fragment_wish_btn_wish_list">查看我的梦想列表</string>
 
-    <!--fragment_statements-->
+    <!--fragment_statements布局里-->
     <string name="fragment_wish_tv_title">报表</string>
     <string name="fragment_wish_tv_time_select">请选择日期▼</string>
+
+    <!--dialog_add_one布局里-->
+    <string name="dialog_add_one_make_bill">记一笔</string>
+    <string name="dialog_add_one_make_asset">记资产</string>
+    <string name="dialog_add_one_make_wish">记心愿</string>
+
+    <!--activity_home_login布局里-->
+    <string name="activity_home_login_tv_title">理财 始于效率</string>
+    <string name="activity_home_login_edt_number">请输入账号</string>
+    <string name="activity_home_login_edt_password">请输入密码</string>
+    <string name="activity_home_login_btn_login">登录</string>
+    <string name="activity_home_login_btn_goto_register">暂无账号 前去注册</string>
+
+    <!--activity_home_register布局里-->
+    <string name="activity_home_register_tv_title">理财 始于效率</string>
+    <string name="activity_home_register_edt_username">请输入用户名</string>
+    <string name="activity_home_register_edt_number">请输入账号</string>
+    <string name="activity_home_register_edt_password">请收入密码</string>
+    <string name="activity_home_register_edt_ensure_password">请确认密码</string>
+    <string name="activity_home_register_btn_register">注册</string>
+    <string name="activity_home_register_btn_goto_login">已有账号 前去登录</string>
+
+    <!--activity_add_wish布局里-->
+    <string name="activity_add_wish_tv_my_wish">我的心愿是</string>
+    <string name="activity_add_wish_edt_write_wish">请写下你的心愿</string>
+    <string name="activity_add_wish_tv_my_wish_budget">我的心愿预算</string>
+    <string name="activity_add_wish_edt_wish_money">实现心愿所需的金额</string>
+    <string name="activity_add_wish_tv_wish_month">我的心愿实现月数</string>
+    <string name="activity_add_wish_tv_select_month">选择所需的月份数▼</string>
+    <string name="activity_add_wish_btn_next">下一步</string>
+    <string name="activity_add_wish_tips">tips：每个月大概需要存——</string>
+    <string name="activity_add_wish_seize_seat">0.00</string>
+    <string name="activity_add_wish_yuan">元</string>
+    <string name="activity_add_wish_other_wish">看看大家的心愿</string>
+    <string name="activity_add_wish_travel">来一场旅行</string>
+    <string name="activity_add_wish_phone">换一部新手机</string>
+    <string name="activity_add_wish_gift">送TA一份礼物</string>
+
+    <!--activity_home_rate布局里-->
+    <string name="activity_home_rate_up_rate">1.00</string>
+    <string name="activity_home_rate_down_rate">0.14</string>
+
+    <!--activity_house_rate布局里-->
+    <string name="activity_house_rate_title">房贷计算器</string>
+    <string name="activity_house_rate_business">商业贷</string>
+    <string name="activity_house_rate_public_fund">公基金贷</string>
+    <string name="activity_house_rate_combination">组合贷</string>
+    <string name="activity_house_rate_find">发现</string>
+
+
 
 </resources>
