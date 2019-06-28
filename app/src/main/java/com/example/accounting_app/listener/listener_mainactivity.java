@@ -1,8 +1,11 @@
 package com.example.accounting_app.listener;
 
+import android.app.AlertDialog;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.Button;
 
+import com.example.accounting_app.R;
 import com.example.accounting_app.activity.MainActivity;
 
 /**
@@ -11,7 +14,7 @@ import com.example.accounting_app.activity.MainActivity;
  * @Time 2019.6.27
  * @Description mainactivity的监听器
  */
-public class listener_mainactivity {
+public class listener_mainactivity{
 
     MainActivity mainactivity;//声明对应类的对象,通过构造函数传参传入赋值，否则无法获取对应的控件
 
@@ -95,6 +98,41 @@ public class listener_mainactivity {
             @Override
             public void onClick(View v) {
                 mainactivity.viewpager.setCurrentItem(3, true);
+            }
+        });
+        mainactivity.rdb_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //编写出现弹窗
+                AlertDialog.Builder dialog = new AlertDialog.Builder(mainactivity);//先通过AlertDialog.Builder创建一个AlertDialog实例
+                View view = View.inflate(mainactivity, R.layout.dialog_add_one, null);
+                dialog.setView(view);
+                dialog.show();
+
+                /**
+                 * 编写弹窗里的三个按钮的监听事件
+                 */
+                Button btn_make_bill = view.findViewById(R.id.btn_make_bill);
+                Button btn_make_asset = view.findViewById(R.id.btn_make_asset);
+                Button btn_make_wish = view.findViewById(R.id.btn_make_wish);
+                btn_make_bill.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                });
+                btn_make_asset.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                });
+                btn_make_wish.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                });
             }
         });
     }

@@ -2,8 +2,10 @@ package com.example.accounting_app.activity;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.RadioButton;
 
 import com.example.accounting_app.R;
@@ -41,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     //本类的监听器和适配器类对象
     listener_mainactivity listener;
     adapter_mainactivity adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

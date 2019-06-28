@@ -52,8 +52,14 @@
     <string name="fragment_wish_btn_save_money">为梦想存钱</string>
     <string name="fragment_wish_btn_wish_list">查看我的梦想列表</string>
 
-    <!--fragment_statements-->
+    <!--fragment_statements布局里-->
     <string name="fragment_wish_tv_title">报表</string>
     <string name="fragment_wish_tv_time_select">请选择日期▼</string>
+
+    <!--dialog_add_one布局里-->
+    <string name="dialog_add_one_make_bill">记一笔</string>
+    <string name="dialog_add_one_make_asset">记资产</string>
+    <string name="dialog_add_one_make_wish">记心愿</string>
+
 
 </resources>
