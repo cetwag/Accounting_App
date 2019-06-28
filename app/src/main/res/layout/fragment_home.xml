@@ -14,8 +14,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2.5"
+            android:layout_height="wrap_content"
             android:background="#FF9900"
             android:orientation="vertical">
 
@@ -26,41 +25,41 @@
 
                 <Button
                     android:id="@+id/btn_slide"
-                    android:layout_width="40dp"
-                    android:layout_height="45dp"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
                     android:background="@drawable/ic_dehaze_black_24dp" />
 
                 <ImageButton
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_gravity="center"
-                    android:layout_marginStart="210dp"
+                    android:layout_marginStart="190dp"
                     android:background="@drawable/ic_location_on_black_24dp" />
 
                 <TextView
                     android:id="@+id/tv_location"
                     android:layout_width="wrap_content"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:text="@string/fragment_home_tv_location"
                     android:textColor="#000000"
-                    android:textSize="22sp" />
+                    android:textSize="20sp" />
             </LinearLayout>
 
             <TextView
                 android:id="@+id/tv_net_assets"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/fragment_home_tv_net_assets"
                 android:textColor="#FFFFFF"
-                android:textSize="35sp"
+                android:textSize="33sp"
                 android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <TextView
@@ -71,7 +70,7 @@
                     android:gravity="center"
                     android:text="@string/fragment_home_tv_all_assets"
                     android:textColor="#FFFFFF"
-                    android:textSize="18sp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -82,7 +81,7 @@
                     android:gravity="center"
                     android:text="@string/fragment_home_tv_negative_assets"
                     android:textColor="#FFFFFF"
-                    android:textSize="18sp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
@@ -139,7 +138,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:divider="#FF9900"
-            android:dividerHeight="2dp">
+            android:dividerHeight="2dp"
+            android:scrollbars="none">
             <!--android:divider="#FF9900"是设置分割线的颜色-->
             <!--android:dividerHeight="5px"是设置分割线的粗细-->
         </ListView>

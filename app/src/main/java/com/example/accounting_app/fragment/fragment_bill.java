@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 
 import com.example.accounting_app.R;
+import com.yatoooon.screenadaptation.ScreenAdapterTools;
 
 /**
  * @Creator cetwag, yuebanquan
@@ -24,10 +25,9 @@ public class fragment_bill extends Fragment {
 
         //inflater使将xml布局文件转换为视图的一个类,container表示在container里面显示这个视图
         View view = inflater.inflate(R.layout.fragment_bill, container, false);
-
+        ScreenAdapterTools.getInstance().loadView(view);//屏幕适配
         return view;
     }
-
 
 
 }
