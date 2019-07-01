@@ -11,6 +11,7 @@ import com.example.accounting_app.fragment.fragment_home;
  * @Description 首页碎片的适配器类
  */
 public class adapter_fragment_home {
+
     fragment_home fragment_home;//声明对应类的对象,通过构造函数传参传入赋值，否则无法获取对应的控件
     //侧滑菜单的内容字符串数组
     public String[] lv_menu;

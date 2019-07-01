@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_back"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/ic_chevron_left_black_24dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="100dp"
+                android:gravity="start|center"
+                android:text="@string/activity_make_asset_title"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/Img_select_bank"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/bank_boc" />
+            <!--占位留白-->
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/tv_select_card"
+                android:layout_width="68dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.1"
+                android:background="@drawable/line_block"
+                android:gravity="center"
+                android:text="@string/activity_make_asset_card_name"
+                android:textColor="#FF9900"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/edt_remarks_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/activity_make_asset_remark_message"
+            android:inputType="text"
+            android:maxLines="1"
+            android:textColorHint="#999999" />
+
+        <EditText
+            android:id="@+id/edt_card_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/activity_make_asset_card_number"
+            android:inputType="number"
+            android:maxLines="1"
+            android:textColorHint="#999999" />
+
+        <EditText
+            android:id="@+id/edt_asset_from"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/activity_make_asset_asset_from"
+            android:inputType="none"
+            android:maxLines="1"
+            android:textColorHint="#999999" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="#FF9900" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/activity_make_asset_user_balance"
+            android:textColorHint="#000000"
+            android:textSize="17sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:id="@+id/Lin_major"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/Lin_outer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_cut_down"
+                    android:layout_width="45dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_remove_circle_black_24dp" />
+
+                <EditText
+                    android:id="@+id/edt_input_balance"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/activity_make_asset_input_balance_hint"
+                    android:inputType="numberDecimal"
+                    android:maxLines="1" />
+
+                <ImageView
+                    android:id="@+id/Imgv_country_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/country_circle_cny" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+    </LinearLayout>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/activity_make_asset_add_new_money"
+            android:textColor="#3399FF"
+            android:textSize="16sp" />
+        <!--写一个Spinner用来显示下拉列表-->
+        <Spinner
+            android:id="@+id/spi_select_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:overlapAnchor="false"
+            android:spinnerMode="dropdown">
+
+        </Spinner>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/save"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="90dp"
+        android:background="@drawable/pay_income_state_pressed"
+        android:text="@string/activity_make_asset_save" />
+</LinearLayout>
+
+
+</LinearLayout>

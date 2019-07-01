@@ -1,7 +1,5 @@
 package com.example.accounting_app.fragment;
 
-import android.app.Dialog;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -47,13 +45,17 @@ public class fragment_home extends Fragment {
     listener_fragment_home listener_fh;
     adapter_fragment_home adapter_fh;
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         //inflater使将xml布局文件转换为视图的一个类,container表示在container里面显示这个视图
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        ScreenAdapterTools.getInstance().loadView(view);//屏幕适配
+
+        //屏幕适配
+        ScreenAdapterTools.getInstance().loadView(view);
+
         return view;
     }
 
@@ -66,13 +68,21 @@ public class fragment_home extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        init();//控件的初始化
-        listener_fh.listener_hf();//首页碎片的监听
-        listener_fh.listener_hf_lv_item();//首页碎片侧滑菜单列表项的监听
-        adapter_fh.adapter_Frgment_Home();//首页碎片的侧滑栏适配器
+        //控件的初始化
+        init();
+
+        //首页碎片的监听
+        listener_fh.listener_hf();
+
+        //首页碎片侧滑菜单列表项的监听
+        listener_fh.listener_hf_lv_item();
+
+        //首页碎片的侧滑栏适配器
+        adapter_fh.adapter_Frgment_Home();
 
         change_state_unlog();//未登录状态
         //change_state_haveloged();//登录状态
+
     }
 
 
@@ -91,6 +101,7 @@ public class fragment_home extends Fragment {
         adapter_fh = new adapter_fragment_home(this);
         btn_login = new Button(getContext());
         btn_register = new Button(getContext());
+
     }
 
     /**

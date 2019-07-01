@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/Imgbtn_select_from_pay"
+                android:layout_width="45dp"
+                android:layout_height="0dp"
+                android:layout_weight="0.3"
+                android:background="@drawable/bank_alipay" />
+
+            <TextView
+                android:id="@+id/tv_from_pay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/money_from_alipay"
+                android:textColor="#000000" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/edt_input_money_pay"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:hint="@string/fragment_make_bill_pay_input_money"
+            android:inputType="numberDecimal"
+            android:maxLines="1"
+            android:textColorHint="#666666"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RadioGroup
+            android:id="@+id/rdg_one_pay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rdb_food"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:button="@null"
+                android:checked="true"
+                android:drawableTop="@drawable/icon_food_change"
+                android:gravity="center"
+                android:text="@string/expenditure_category_food" />
+
+            <RadioButton
+                android:id="@+id/rdb_travel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:button="@null"
+                android:drawableTop="@drawable/icon_travel_change"
+                android:gravity="center"
+                android:text="@string/expenditure_category_travel" />
+
+            <RadioButton
+                android:id="@+id/rdb_shop"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:button="@null"
+                android:drawableTop="@drawable/icon_shop_change"
+                android:gravity="center"
+                android:text="@string/expenditure_category_shop" />
+
+            <RadioButton
+                android:id="@+id/rdb_traffic"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:button="@null"
+                android:drawableTop="@drawable/icon_traffic_change"
+                android:gravity="center"
+                android:text="@string/expenditure_category_traffic" />
+        </RadioGroup>
+
+        <RadioGroup
+            android:id="@+id/rdg_two_pay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rdb_communication"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:button="@null"
+                android:drawableTop="@drawable/icon_communication_change"
+                android:gravity="center"
+                android:text="@string/expenditure_category_communication" />
+
+            <RadioButton
+                android:id="@+id/rdb_hospital"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:button="@null"
+                android:drawableTop="@drawable/icon_hospital_change"
+                android:gravity="center"
+                android:text="@string/expenditure_category_hospital" />
+
+            <RadioButton
+                android:id="@+id/rdb_house"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:button="@null"
+                android:drawableTop="@drawable/icon_house_change"
+                android:gravity="center"
+                android:text="@string/expenditure_category_house" />
+
+            <RadioButton
+                android:id="@+id/rdb_child"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:button="@null"
+                android:drawableTop="@drawable/icon_child_change"
+                android:gravity="center"
+                android:text="@string/expenditure_category_child" />
+        </RadioGroup>
+
+        <RadioGroup
+            android:id="@+id/rdg_three_pay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rdb_teach"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:button="@null"
+                android:drawableTop="@drawable/icon_study_change"
+                android:gravity="center"
+                android:text="@string/expenditure_category_teach" />
+
+            <RadioButton
+                android:id="@+id/rdb_play"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:button="@null"
+                android:drawableTop="@drawable/icon_play_change"
+                android:gravity="center"
+                android:text="@string/expenditure_category_play" />
+
+            <RadioButton
+                android:id="@+id/rdb_pet"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:button="@null"
+                android:drawableTop="@drawable/icon_pet_change"
+                android:gravity="center"
+                android:text="@string/expenditure_category_pet" />
+
+            <RadioButton
+                android:id="@+id/rdb_life"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:button="@null"
+                android:drawableTop="@drawable/icon_interest_change"
+                android:gravity="center"
+                android:text="@string/expenditure_category_life" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rdb_select_time_pay"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:button="@null"
+            android:drawableTop="@drawable/ic_date_range_black_24dp"
+            android:gravity="center"
+            android:text="@string/fragment_make_bill_pay_today"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/edt_remarks_message_pay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/fragment_make_bill_pay_remarks_information"
+            android:inputType="text"
+            android:maxLines="1"
+            android:textColorHint="#666666"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_determine_pay"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/pay_income_state_pressed"
+        android:text="@string/fragment_make_bill_pay_determine"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+</LinearLayout>

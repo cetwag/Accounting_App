@@ -2,7 +2,7 @@ package com.example.accounting_app.listener;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.util.Log;
+import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +15,7 @@ import com.example.accounting_app.activity.activity_home_login;
 import com.example.accounting_app.activity.activity_house_rate;
 import com.example.accounting_app.activity.activity_home_register;
 import com.example.accounting_app.fragment.fragment_home;
+import com.yatoooon.screenadaptation.ScreenAdapterTools;
 
 /**
  * @Creator cetwag yuebanquan
@@ -84,31 +85,26 @@ public class listener_fragment_home implements View.OnClickListener {
         frag_h.lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                switch ((int)id) {
+                switch ((int) id) {
                     case 3://汇率计算器弹窗编写
+                        DisplayMetrics dm=new DisplayMetrics();
+                        frag_h.getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
+                        int width =dm.widthPixels;//获取屏幕宽度
+                        int height = dm.heightPixels;//获取屏幕高度
                         Dialog dialog = new Dialog(frag_h.getContext());
                         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                         LayoutInflater inflater = LayoutInflater.from(frag_h.getContext());
-                        View v = inflater.inflate(R.layout.activity_home_rate, null);//弹窗视图在这里
-                        Log.d("1759115", "test3 ");
+                        View v = inflater.inflate(R.layout.dialog_exchange_rate, null);//弹窗视图在这里
+                        ScreenAdapterTools.getInstance().loadView(v);
                         dialog.setContentView(v);
-                        Log.d("1759115", "test4 ");
                         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-                        Log.d("1759115", "test5 ");
                         Window window = dialog.getWindow();
-                        Log.d("1759115", "test6 ");
                         lp.copyFrom(window.getAttributes());
-                        Log.d("1759115", "test7 ");
-                        lp.width = 1000;
-                        Log.d("1759115", "test8 ");
-                        lp.height = 1100;
-                        Log.d("1759115", "test9 ");
+                        lp.width = width;
+                        lp.height = height/2;
                         lp.gravity = Gravity.CENTER;
-                        Log.d("1759115", "test10 ");
                         dialog.show();
-                        Log.d("1759115", "test11 ");
                         window.setAttributes(lp);
-                        Log.d("1759115", "test12 ");
                         break;
                     case 4://跳转到房贷计算器
                         Intent intent = new Intent(frag_h.getContext(), activity_house_rate.class);
