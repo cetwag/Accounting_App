@@ -23,22 +23,9 @@
     <string name="fragment_bill_rdb_select_total_income">全部收入</string>
     <string name="fragment_bill_rdb_select_total_pay">全部支出</string>
     <string name="fragment_bill_tv_select_classification">筛选分类</string>
+    <string name="fragment_bill_cxb_other">其他</string>
     <string name="fragment_bill_tv_pay">支出</string>
-    <string name="fragment_bill_cxb_food">餐饮</string>
-    <string name="fragment_bill_cxb_shop">购物</string>
-    <string name="fragment_bill_cxb_house">住房</string>
-    <string name="fragment_bill_cxb_travel">旅行</string>
-    <string name="fragment_bill_cxb_play">娱乐</string>
-    <string name="fragment_bill_cxb_car">汽车</string>
-    <string name="fragment_bill_cxb_child">育儿</string>
-    <string name="fragment_bill_cxb_hospital">医疗</string>
-    <string name="fragment_bill_other">其它</string>
     <string name="fragment_bill_tv_income">收入</string>
-    <string name="fragment_bill_cxb_wages">工资</string>
-    <string name="fragment_bill_cxb_reward">奖金</string>
-    <string name="fragment_bill_cxb_interest">利息收入</string>
-    <string name="fragment_bill_cxb_investment">投资收入</string>
-    <string name="fragment_bill_cxb_unexpected">意外所得</string>
     <string name="fragment_bill_cxb_reimbursement">可报销</string>
     <string name="fragment_bill_cxb_internal_transfer">内部转账</string>
     <string name="fragment_bill_cxb_deposit">存款</string>
@@ -46,6 +33,7 @@
     <string name="fragment_bill_cxb_return_credit_card">还信用卡</string>
     <string name="fragment_bill_btn_reset">重置</string>
     <string name="fragment_bill_btn_finish">完成</string>
+    <string name="fragment_bill_tv_classification_for_sorting">按时间</string>
 
     <!--fragment_wish布局里-->
     <string name="fragment_wish_tv_title_text">一点一滴，为梦想存钱</string>
@@ -103,6 +91,77 @@
     <string name="activity_house_rate_public_fund">公基金贷</string>
     <string name="activity_house_rate_combination">组合贷</string>
     <string name="activity_house_rate_find">发现</string>
+
+    <!--activity_make_bill布局里-->
+    <string name="activity_make_bill_pay">支出</string>
+    <string name="activity_make_bill_income">收入</string>
+
+    <!--fragment_make_bill_pay布局里-->
+    <string name="fragment_make_bill_pay_input_money">输入支出金额</string>
+    <string name="fragment_make_bill_pay_today">今天</string>
+    <string name="fragment_make_bill_pay_remarks_information">请输入备注信息(最多140字)</string>
+    <string name="fragment_make_bill_pay_determine">确定</string>
+
+    <!--支出类别文字-->
+    <string name="expenditure_category_food">餐饮</string>
+    <string name="expenditure_category_travel">旅行</string>
+    <string name="expenditure_category_shop">购物</string>
+    <string name="expenditure_category_traffic">交通</string>
+    <string name="expenditure_category_communication">通讯</string>
+    <string name="expenditure_category_hospital">医疗</string>
+    <string name="expenditure_category_house">住房</string>
+    <string name="expenditure_category_child">育儿</string>
+    <string name="expenditure_category_teach">文教</string>
+    <string name="expenditure_category_play">娱乐</string>
+    <string name="expenditure_category_pet">宠物</string>
+    <string name="expenditure_category_life">生活</string>
+    <string name="expenditure_category_other">其它</string>
+    <!--收入类别文字-->
+    <string name="income_category_bonus">奖金</string>
+    <string name="income_category_wages">工资</string>
+    <string name="income_category_investment_profit">投资收益</string>
+    <string name="income_category_reimbursement">报销</string>
+    <string name="income_category_borrow">借入</string>
+    <string name="income_category_investment_recovery">投资回收</string>
+    <string name="income_category_debt_collection">收债</string>
+    <string name="income_category_red_envelopes">红包</string>
+
+    <!--fragment_make_bill_income布局里-->
+    <string name="fragment_make_bill_income_today">今天</string>
+    <string name="fragment_make_bill_income_remarks_information">请输入备注信息(最多140字)</string>
+    <string name="fragment_make_bill_income_determine">确定</string>
+    <string name="fragment_make_bill_income_input_money">输入收入金额</string>
+
+    <!--银行等金钱来源-->
+    <string name="money_from_alipay">支付宝</string>
+
+    <!--activity_make_asset布局里-->
+    <string name="activity_make_asset_title">新建账户</string>
+    <string name="activity_make_asset_card_name">借记卡</string>
+    <string name="activity_make_asset_remark_message">备注信息   如工资卡(可不填)</string>
+    <string name="activity_make_asset_card_number">账户卡号</string>
+    <string name="activity_make_asset_asset_from">资产来源</string>
+    <string name="activity_make_asset_user_balance">账户余额:</string>
+    <string name="activity_make_asset_input_balance_hint">￥0.00</string>
+    <string name="activity_make_asset_add_new_money">添加新币种</string>
+    <string name="activity_make_asset_save">保存</string>
+
+    <!--menu_spinner_make_asset菜单里-->
+    <string name="menu_spinner_make_asset_debit_card">借记卡</string>
+    <string name="menu_spinner_make_asset_credit_card">信用卡</string>
+    <string name="menu_spinner_make_asset_other_card">其他</string>
+
+    <!--pop_menu_make_asset菜单里-->
+    <string name="pop_menu_make_asset_icbc">工商银行</string>
+    <string name="pop_menu_make_asset_spdb">浦发银行</string>
+    <string name="pop_menu_make_asset_abc">农业银行</string>
+    <string name="pop_menu_make_asset_bcm">交通银行</string>
+    <string name="pop_menu_make_asset_boc">中国银行</string>c
+    <string name="pop_menu_make_asset_ccb">建设银行</string>
+    <string name="pop_menu_make_asset_cmb">招商银行</string>
+    <string name="pop_menu_make_asset_alipay">支付宝</string>
+    <string name="pop_menu_make_asset_wechat">微信</string>
+
 
 
 

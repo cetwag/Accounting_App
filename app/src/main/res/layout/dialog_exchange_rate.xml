@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="450dp"
-    android:background="@drawable/exchang_mongey_bak"
+    android:layout_width="match_parent"
+    android:layout_height="550dp"
+    android:background="@drawable/bakcground_exchange_money"
     android:orientation="vertical">
 
     <View
@@ -23,7 +23,7 @@
             android:id="@+id/Imgbtn_up_rate"
             android:layout_width="80dp"
             android:layout_height="50dp"
-            android:background="@drawable/cny_circle" />
+            android:background="@drawable/country_circle_cny" />
 
         <EditText
             android:id="@+id/edt_up"
@@ -56,7 +56,7 @@
             android:id="@+id/Imgbtn_down_rate"
             android:layout_width="80dp"
             android:layout_height="50dp"
-            android:background="@drawable/usd_circle" />
+            android:background="@drawable/country_circle_usd" />
 
         <EditText
             android:id="@+id/edt_down"

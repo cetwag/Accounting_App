@@ -33,7 +33,10 @@ public class fragment_wish extends Fragment {
 
         //inflater使将xml布局文件转换为视图的一个类,container表示在container里面显示这个视图
         View view = inflater.inflate(R.layout.fragment_wish, container, false);
-        ScreenAdapterTools.getInstance().loadView(view);//屏幕适配
+
+        //屏幕适配
+        ScreenAdapterTools.getInstance().loadView(view);
+
         return view;
     }
 
