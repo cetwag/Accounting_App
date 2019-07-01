@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/DrawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -36,21 +35,21 @@
                     android:id="@+id/tv_time_selected"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
                     android:layout_weight="1"
                     android:gravity="start"
-                    android:layout_marginStart="10dp"
                     android:text="@string/fragment_bill_tv_time_select"
                     android:textColor="#FFFFFF"
-                    android:textSize="22sp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tv_screen"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
                     android:layout_weight="1"
                     android:gravity="end"
-                    android:layout_marginEnd="10dp"
                     android:text="@string/fragment_bill_tv_screen"
                     android:textColor="#FFFFFF"
                     android:textSize="22sp"
@@ -69,20 +68,43 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:gravity="center"
-                    android:text="@string/fragment_bill_tv_bill_details"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:gravity="center|start"
+                        android:text="@string/fragment_bill_tv_bill_details"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                    <!--占位-->
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2.5" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/line_block"
+                        android:gravity="center"
+                        android:text="@string/fragment_bill_tv_classification_for_sorting"
+                        android:textColor="#000000" />
+                </LinearLayout>
 
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
-                    android:layout_marginLeft="55dp"
+                    android:layout_marginStart="55dp"
                     android:background="#FF9900" />
             </LinearLayout>
         </ScrollView>
@@ -91,54 +113,55 @@
     <!--下面编写第二个子View,用于编写侧滑菜单，并且设置从右侧滑出-->
     <LinearLayout
         android:layout_width="320dp"
-        android:layout_height="555dp"
+        android:layout_height="match_parent"
         android:layout_gravity="end"
-        android:layout_marginTop="110dp"
+        android:layout_marginTop="96dp"
         android:background="#FFFFFF"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.05"
+            android:layout_weight="1"
             android:text="@string/fragment_bill_tv_select_income_pay"
             android:textColor="#000000"
-            android:textSize="18sp"
+            android:textSize="17sp"
             android:textStyle="bold" />
 
         <RadioGroup
             android:id="@+id/rdg_one"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.08"
+            android:layout_weight="1"
             android:orientation="horizontal">
 
             <RadioButton
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/fragment_bill_rdb_select_total_income" />
+                android:text="@string/fragment_bill_rdb_select_total_pay" />
 
             <RadioButton
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/fragment_bill_rdb_select_total_pay" />
+                android:text="@string/fragment_bill_rdb_select_total_income" />
+
         </RadioGroup>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.06"
+            android:layout_weight="1"
             android:text="@string/fragment_bill_tv_select_classification"
             android:textColor="#000000"
-            android:textSize="18sp"
+            android:textSize="17sp"
             android:textStyle="bold" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.05"
+            android:layout_weight="1"
             android:text="@string/fragment_bill_tv_pay"
             android:textColor="#CC0000"
             android:textSize="15sp"
@@ -147,91 +170,91 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.1"
+            android:layout_weight="1"
             android:orientation="horizontal">
 
             <CheckBox
                 android:id="@+id/ckb_food"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/fragment_bill_cxb_food" />
+                android:text="@string/expenditure_category_food" />
 
             <CheckBox
                 android:id="@+id/ckb_shop"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/fragment_bill_cxb_shop" />
+                android:text="@string/expenditure_category_shop" />
 
             <CheckBox
                 android:id="@+id/ckb_house"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/fragment_bill_cxb_house" />
+                android:text="@string/expenditure_category_house" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.1"
+            android:layout_weight="1"
             android:orientation="horizontal">
 
             <CheckBox
                 android:id="@+id/ckb_travel"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/fragment_bill_cxb_travel" />
+                android:text="@string/expenditure_category_travel" />
 
             <CheckBox
                 android:id="@+id/ckb_play"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/fragment_bill_cxb_play" />
+                android:text="@string/expenditure_category_play" />
 
             <CheckBox
-                android:id="@+id/ckb_car"
+                android:id="@+id/ckb_communication"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/fragment_bill_cxb_car" />
+                android:text="@string/expenditure_category_communication" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.1"
+            android:layout_weight="1"
             android:orientation="horizontal">
 
             <CheckBox
                 android:id="@+id/ckb_child"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/fragment_bill_cxb_child" />
+                android:text="@string/expenditure_category_child" />
 
             <CheckBox
                 android:id="@+id/ckb_hospital"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/fragment_bill_cxb_hospital" />
+                android:text="@string/expenditure_category_hospital" />
 
             <CheckBox
                 android:id="@+id/ckb_pay_other"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/fragment_bill_other" />
+                android:text="@string/expenditure_category_other" />
         </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.05"
+            android:layout_weight="1"
             android:text="@string/fragment_bill_tv_income"
             android:textColor="#006600"
             android:textSize="15sp"
@@ -240,64 +263,64 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.1"
+            android:layout_weight="1"
             android:orientation="horizontal">
 
             <CheckBox
                 android:id="@+id/ckb_wages"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/fragment_bill_cxb_wages" />
+                android:text="@string/income_category_wages" />
 
             <CheckBox
                 android:id="@+id/ckb_reward"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/fragment_bill_cxb_reward" />
+                android:text="@string/income_category_bonus" />
 
             <CheckBox
                 android:id="@+id/ckb_interest"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/fragment_bill_cxb_interest" />
+                android:text="@string/income_category_investment_profit" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.1"
+            android:layout_weight="1"
             android:orientation="horizontal">
 
             <CheckBox
                 android:id="@+id/ckb_investment"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/fragment_bill_cxb_investment" />
+                android:text="@string/income_category_reimbursement" />
 
             <CheckBox
                 android:id="@+id/ckb_unexpected"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/fragment_bill_cxb_unexpected" />
+                android:text="@string/income_category_borrow" />
 
             <CheckBox
                 android:id="@+id/ckb_income_other"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/fragment_bill_other" />
+                android:text="@string/fragment_bill_cxb_other" />
         </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.05"
-            android:text="@string/fragment_bill_other"
+            android:layout_weight="1"
+            android:text="@string/fragment_bill_cxb_other"
             android:textColor="#000000"
             android:textSize="15sp"
             android:textStyle="bold" />
@@ -305,27 +328,27 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.1"
+            android:layout_weight="1"
             android:orientation="horizontal">
 
             <CheckBox
                 android:id="@+id/ckb_reimbursement"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/fragment_bill_cxb_reimbursement" />
 
             <CheckBox
                 android:id="@+id/ckb_internal_transfer"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/fragment_bill_cxb_internal_transfer" />
 
             <CheckBox
                 android:id="@+id/ckb_deposit"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/fragment_bill_cxb_deposit" />
         </LinearLayout>
@@ -333,41 +356,41 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.1"
+            android:layout_weight="1"
             android:orientation="horizontal">
 
             <CheckBox
                 android:id="@+id/ckb_collect_debts"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/fragment_bill_cxb_collect_debts" />
 
             <CheckBox
                 android:id="@+id/ckb_return_credit_card"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/fragment_bill_cxb_return_credit_card" />
 
             <CheckBox
                 android:id="@+id/ckb_other_other"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/fragment_bill_other" />
+                android:text="@string/fragment_bill_cxb_other" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.08"
+            android:layout_weight="1"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btn_reset"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="#333333"
                 android:text="@string/fragment_bill_btn_reset"
@@ -376,7 +399,7 @@
             <Button
                 android:id="@+id/btn_finish"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="#FF9900"
                 android:text="@string/fragment_bill_btn_finish"

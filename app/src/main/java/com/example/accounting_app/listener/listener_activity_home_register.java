@@ -21,7 +21,7 @@ public class listener_activity_home_register implements View.OnClickListener {
 
     /**
      * @parameter
-     * @description 编写两个有参和午餐构造函数用来获取对应类的控件
+     * @description 编写两个有参和无餐构造函数用来获取对应类的控件
      * @Time 2019/6/28 15:56
      */
     public listener_activity_home_register() {

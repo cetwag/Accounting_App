@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/icbc"
+        android:title="@string/pop_menu_make_asset_icbc"
+        android:icon="@drawable/bank_icbc"/>
+    <item android:id="@+id/spdb"
+        android:title="@string/pop_menu_make_asset_spdb"
+        android:icon="@drawable/bank_spdb"/>
+    <item android:id="@+id/cmb"
+        android:title="@string/pop_menu_make_asset_cmb"
+        android:icon="@drawable/bank_cmb"/>
+    <item android:id="@+id/bcm"
+        android:title="@string/pop_menu_make_asset_bcm"
+        android:icon="@drawable/bank_bcm"/>
+    <item android:id="@+id/ccb"
+        android:title="@string/pop_menu_make_asset_ccb"
+        android:icon="@drawable/bank_ccb"/>
+    <item android:id="@+id/boc"
+        android:title="@string/pop_menu_make_asset_boc"
+        android:icon="@drawable/bank_boc"/>
+    <item android:id="@+id/abc"
+        android:title="@string/pop_menu_make_asset_abc"
+        android:icon="@drawable/bank_abc"/>
+    <item android:id="@+id/wechat"
+        android:title="@string/pop_menu_make_asset_wechat"
+        android:icon="@drawable/bank_wechat"/>
+    <item android:id="@+id/alipay"
+        android:title="@string/pop_menu_make_asset_alipay"
+        android:icon="@drawable/bank_alipay"/>
+</menu>

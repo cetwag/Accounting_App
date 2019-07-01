@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.view.View;
 
 import com.example.accounting_app.R;
-import com.example.accounting_app.activity.activity_add_wish;
+import com.example.accounting_app.activity.activity_make_wish;
 import com.example.accounting_app.activity.activity_show_wish;
 import com.example.accounting_app.fragment.fragment_wish;
 
@@ -44,7 +44,7 @@ public class listener_fragment_wish implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_save_money:
-                Intent intent_save_money = new Intent(frag_w.getContext(), activity_add_wish.class);
+                Intent intent_save_money = new Intent(frag_w.getContext(), activity_make_wish.class);
                 frag_w.startActivity(intent_save_money);
                 break;
             case R.id.btn_wish_list:
