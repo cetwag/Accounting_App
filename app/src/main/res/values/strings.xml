@@ -162,6 +162,15 @@
     <string name="pop_menu_make_asset_alipay">支付宝</string>
     <string name="pop_menu_make_asset_wechat">微信</string>
 
+    <!--activity_home_about布局里-->
+    <string name="activity_home_about_tv_creator">Creator: cetwag yuebanquan zyhang8</string>
+    <string name="activity_home_about_tv_time">Time: 2019.5——2019.7</string>
+    <string name="activity_home_about_tv_description">Description: A Simple Accounting App
+        Interest Works of Three Sophomores</string>
+    <string name="activity_home_about_tv_characteristic">Characteristic: Various Interactive Logics among Multicurrencies;
+        Synchronization mechanism between server and multi-device;
+        Introduction of Wish Module</string>
+    <string name="activity_home_about_tv_contact_us">Github_repository: Accounting_App</string>
 
 
 

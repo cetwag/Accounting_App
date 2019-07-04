@@ -10,6 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activity.activity_home_about" />
         <activity android:name=".activity.activity_make_bill" />
         <activity android:name=".activity.activity_make_asset" />
         <activity android:name=".activity.activity_house_rate" />
