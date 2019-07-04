@@ -1,9 +1,11 @@
 package com.example.accounting_app.listener;
 
+import android.content.Intent;
 import android.view.View;
 
 import com.example.accounting_app.R;
 import com.example.accounting_app.activity.activity_make_wish;
+import com.example.accounting_app.activity.activity_show_wish;
 
 /**
  * @Creator cetwag yuebanquan
@@ -34,6 +36,7 @@ public class listener_activity_add_wish implements View.OnClickListener {
      */
     public void listener_adw() {
         activity_add_wish.tv_select_month.setOnClickListener(this);
+        activity_add_wish.btn_next.setOnClickListener(this);
     }
 
     /**
@@ -46,6 +49,11 @@ public class listener_activity_add_wish implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.tv_select_month:
                 activity_add_wish.pvTime.show();
+                break;
+            case R.id.btn_next:
+                //点击进入显示心愿页面
+                Intent intent_to_show_wish = new Intent(activity_add_wish, activity_show_wish.class);
+                activity_add_wish.startActivity(intent_to_show_wish);
                 break;
         }
     }

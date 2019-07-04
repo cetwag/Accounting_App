@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
@@ -28,6 +29,7 @@ public class activity_make_wish extends AppCompatActivity {
     public TextView tv_select_month;
     type_or_format_conversion t;//功能类对象
     listener_activity_add_wish listener;//监听类对象
+    public Button btn_next;//下一步按钮
 
 
     @Override
@@ -56,6 +58,7 @@ public class activity_make_wish extends AppCompatActivity {
      */
     void init() {
         tv_select_month = findViewById(R.id.tv_select_month);
+        btn_next = findViewById(R.id.btn_next);
         listener = new listener_activity_add_wish(this);
         t = new type_or_format_conversion();
     }
