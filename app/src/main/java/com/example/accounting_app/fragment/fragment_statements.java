@@ -67,7 +67,7 @@ public class fragment_statements extends Fragment {
         adapter.adapter_Fragment_statements();
 
         //饼状图绘制
-        piec.pie_chart_data();
+        piec.pie_chart_data_pay();
     }
 
     /**
