@@ -24,7 +24,14 @@
     		<mapping class="com.test.model.Magazine" />
     	</list>
     -->
-    <list></list>
+    <list>
+        <mapping class="com.example.accounting_app.database.AssetAccount"/>
+        <mapping class="com.example.accounting_app.database.Classify"/>
+        <mapping class="com.example.accounting_app.database.Currency"/>
+        <mapping class="com.example.accounting_app.database.Synchronize"/>
+        <mapping class="com.example.accounting_app.database.Tally"/>
+        <mapping class="com.example.accounting_app.database.User"/>
+    </list>
 
     <!--
        定义.db文件的位置。“internal”是指.db文件是否会存储在数据库文件夹的内部。
