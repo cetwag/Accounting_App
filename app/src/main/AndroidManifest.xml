@@ -3,7 +3,7 @@
     package="com.example.accounting_app">
 
     <application
-        android:name=".function.AndroidScreenAdaptation"
+        android:name=".function.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
