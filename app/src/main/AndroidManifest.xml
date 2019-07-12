@@ -3,13 +3,14 @@
     package="com.example.accounting_app">
 
     <application
-        android:name=".function.AndroidScreenAdaptation"
+        android:name=".function.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activity.activity_home_about" />
         <activity android:name=".activity.activity_make_bill" />
         <activity android:name=".activity.activity_make_asset" />
         <activity android:name=".activity.activity_house_rate" />

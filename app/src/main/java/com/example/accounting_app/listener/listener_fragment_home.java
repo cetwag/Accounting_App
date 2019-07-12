@@ -11,6 +11,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 
 import com.example.accounting_app.R;
+import com.example.accounting_app.activity.activity_home_about;
 import com.example.accounting_app.activity.activity_home_login;
 import com.example.accounting_app.activity.activity_house_rate;
 import com.example.accounting_app.activity.activity_home_register;
@@ -107,8 +108,12 @@ public class listener_fragment_home implements View.OnClickListener {
                         window.setAttributes(lp);
                         break;
                     case 4://跳转到房贷计算器
-                        Intent intent = new Intent(frag_h.getContext(), activity_house_rate.class);
-                        frag_h.startActivity(intent);
+                        Intent intent_house_calculation= new Intent(frag_h.getContext(), activity_house_rate.class);
+                        frag_h.startActivity(intent_house_calculation);
+                        break;
+                    case 6:
+                        Intent intent_about = new Intent(frag_h.getContext(), activity_home_about.class);
+                        frag_h.startActivity(intent_about);
                         break;
                 }
             }

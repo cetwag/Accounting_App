@@ -1,5 +1,6 @@
 package com.example.accounting_app.activity;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,7 @@ import android.widget.RadioButton;
 
 import com.example.accounting_app.R;
 import com.example.accounting_app.adapter.adapter_mainactivity;
+import com.example.accounting_app.database.AssetAccount;
 import com.example.accounting_app.fragment.fragment_bill;
 import com.example.accounting_app.fragment.fragment_home;
 import com.example.accounting_app.fragment.fragment_statements;
@@ -16,6 +18,8 @@ import com.example.accounting_app.fragment.fragment_wish;
 import com.example.accounting_app.function.CustomViewPager;
 import com.example.accounting_app.listener.listener_mainactivity;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
+
+import org.litepal.tablemanager.Connector;
 
 import java.util.ArrayList;
 
@@ -65,6 +69,9 @@ public class MainActivity extends AppCompatActivity {
         //该类对应的适配器
         adapter.adapter_MainActivity();
 
+        initDb();   //数据库初始化,建表
+
+//        testDb();   //测试数据库
     }
 
     /**
@@ -72,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
      * @description findViewById等控件的初始化
      * @Time 2019/6/27 14:27
      */
-    void init() {
+    public void init() {
         viewpager = findViewById(R.id.ViewPager);
         rdb_home = findViewById(R.id.rdb_home);
         rdb_bill = findViewById(R.id.rdb_bill);
@@ -88,5 +95,29 @@ public class MainActivity extends AppCompatActivity {
         //因为滑动监听初始化的时候不生效,所以第一次viewpager的时候加入一次限定
         viewpager.setAllowedSwipeDirection(CustomViewPager.SwipeDirection.right);
     }
+
+    /**
+     * @parameter
+     * @description 数据库的初始化
+     * @Time 2019/7/12 16:00
+     */
+    public void initDb() {
+        SQLiteDatabase db = Connector.getDatabase();
+    }
+
+    /**
+     * @parameter
+     * @description 测试数据库
+     * @Time 2019/7/12 20:35
+     */
+//    public void testDb() {
+//        AssetAccount assetAccount = new AssetAccount();
+//        assetAccount.setAssetAccountType(0);
+//        assetAccount.setAssetAccountBankName("中国银行");
+//        assetAccount.setAssetAccountCardNum("6222621310030964817");
+////        assetAccount.setAssetAccountMoney("10.0");
+//        assetAccount.save();
+//    }
+
 
 }
