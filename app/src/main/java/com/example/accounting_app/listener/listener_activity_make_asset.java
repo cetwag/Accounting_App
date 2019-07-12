@@ -1,8 +1,10 @@
 package com.example.accounting_app.listener;
 
+import android.content.Intent;
 import android.support.v7.view.menu.MenuPopupHelper;
 import android.support.v7.widget.PopupMenu;
 import android.text.Layout;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,9 +16,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.accounting_app.R;
+import com.example.accounting_app.activity.MainActivity;
 import com.example.accounting_app.activity.activity_make_asset;
+import com.example.accounting_app.database.AssetAccount;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 
 import java.lang.reflect.Field;
@@ -34,6 +39,7 @@ public class listener_activity_make_asset implements View.OnClickListener {
     //因为这个动态增加的国旗图片需要在多个方法中使用,所以直接拉到最顶上来定义
     ImageView Img_country;
     int index;//删除按钮的索引
+    private static AssetAccount assetAccount;//数据库表对象
 
     /**
      * @parameter
@@ -57,6 +63,7 @@ public class listener_activity_make_asset implements View.OnClickListener {
         activity_ma.tv_select_card.setOnClickListener(this);
         activity_ma.Img_select_bank.setOnClickListener(this);
         listener_activity_ma_spinner();
+        activity_ma.save.setOnClickListener(this);
     }
 
     /**
@@ -153,6 +160,10 @@ public class listener_activity_make_asset implements View.OnClickListener {
                     e.printStackTrace();
                 }
                 popup_bank.show();//弹出菜单的而显示
+                break;
+            case R.id.save:
+                save_asset();//将输入的数据存入数据库
+                activity_ma.finish();
                 break;
         }
     }
@@ -335,6 +346,45 @@ public class listener_activity_make_asset implements View.OnClickListener {
                 activity_ma.Lin_major.removeViewAt(index);//删除对应的币种行
                 break;
             }
+        }
+    }
+
+
+    /**
+     * @parameter
+     * @description 将输入数据存入数据库
+     * @Time 2019/7/12 22:30
+     */
+    void save_asset() {
+        //edt_remarks_message备注信息框,不能为空
+        //edt_card_number卡号输入框,可为空
+        //edt_asset_from资产来源框,不可为空
+        //edt_input_balance余额框,不能为空
+        String string_remarks_message = activity_ma.edt_remarks_message.getText().toString();//获取备注信息
+        String string_card_number = activity_ma.edt_card_number.getText().toString();//获取卡号
+        String string_asset_from = activity_ma.edt_asset_from.getText().toString();//获取资产来源
+        String string_input_balance = activity_ma.edt_input_balance.getText().toString();//获取余额
+        assetAccount = new AssetAccount();//创建资产表对象
+        if (!TextUtils.isEmpty(string_remarks_message)) {//如果输入的备注信息不为空
+            if (!TextUtils.isEmpty(string_input_balance)) {//如果输入的余额不为空
+                if (!TextUtils.isEmpty(string_asset_from )) {//如果资产来源不为空
+                    assetAccount.setAssetAccountBankName(string_asset_from );//存入资产来源
+                } else {
+                    Toast.makeText(activity_ma,
+                            "请选择资产来源", Toast.LENGTH_SHORT).show();
+                }
+                assetAccount.setAssetAccountMoney(string_input_balance);//存入余额
+            } else {
+                Toast.makeText(activity_ma,
+                        "请输入余额", Toast.LENGTH_SHORT).show();
+            }
+            assetAccount.setAssetAccountType(string_remarks_message);//存入备注信息
+            assetAccount.setAssetAccountCardNum(string_card_number);//卡号可为空，所以放在最后不用判断是否为空
+            assetAccount.save();
+            activity_ma.finish();
+        } else {
+            Toast.makeText(activity_ma,
+                    "请输入备注信息", Toast.LENGTH_SHORT).show();
         }
     }
 }

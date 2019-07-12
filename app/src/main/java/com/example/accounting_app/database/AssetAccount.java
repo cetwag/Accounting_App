@@ -15,8 +15,9 @@ import java.util.List;
 
 public class AssetAccount extends LitePalSupport {
     @Column(nullable = false)
-    private int assetAccountType;           //账户类别
+    private String assetAccountType;           //备注信息
 
+    @Column(nullable = false)
     private String assetAccountBankName;    //银行名称
 
     private String assetAccountCardNum;       //账户卡号
@@ -41,11 +42,11 @@ public class AssetAccount extends LitePalSupport {
      * @description getter & setter
      * @Time 2019/7/12 15:36
      */
-    public int getAssetAccountType() {
+    public String getAssetAccountType() {
         return assetAccountType;
     }
 
-    public void setAssetAccountType(int assetAccountType) {
+    public void setAssetAccountType(String assetAccountType) {
         this.assetAccountType = assetAccountType;
     }
 

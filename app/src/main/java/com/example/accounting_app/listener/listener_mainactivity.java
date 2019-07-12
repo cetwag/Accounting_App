@@ -25,7 +25,7 @@ import com.yatoooon.screenadaptation.ScreenAdapterTools;
 public class listener_mainactivity implements View.OnClickListener {
 
     MainActivity mainactivity;//声明对应类的对象,通过构造函数传参传入赋值，否则无法获取对应的控件
-    float beforeX;
+    AlertDialog.Builder dialog;//弹窗对象
 
 
     /**
@@ -127,7 +127,7 @@ public class listener_mainactivity implements View.OnClickListener {
                 break;
             case R.id.rdb_add:
                 //编写出现弹窗
-                AlertDialog.Builder dialog = new AlertDialog.Builder(mainactivity);//先通过AlertDialog.Builder创建一个AlertDialog实例
+                dialog = new AlertDialog.Builder(mainactivity);//先通过AlertDialog.Builder创建一个AlertDialog实例
                 View view = View.inflate(mainactivity, R.layout.dialog_add_one, null);
                 ScreenAdapterTools.getInstance().loadView(view);
                 dialog.setView(view);
@@ -150,6 +150,7 @@ public class listener_mainactivity implements View.OnClickListener {
                     public void onClick(View v) {
                         Intent intent_make_asset = new Intent(mainactivity, activity_make_asset.class);
                         mainactivity.startActivity(intent_make_asset);
+
                     }
                 });
                 btn_make_wish.setOnClickListener(new View.OnClickListener() {

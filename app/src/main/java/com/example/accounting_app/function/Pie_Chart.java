@@ -72,6 +72,7 @@ public class Pie_Chart {
         entries.add(new PieEntry(1, "餐饮"));
         entries.add(new PieEntry(2, "旅行"));
         entries.add(new PieEntry(1, "购物"));
+        entries.add(new PieEntry(1, "其他"));
         entries.add(new PieEntry(2, "其他"));
 
         //设置数据
@@ -125,7 +126,11 @@ public class Pie_Chart {
 
     /**
      * @parameter
+<<<<<<< Updated upstream
      * @description //饼状图加入数据函数,在支出情况下的图表
+=======
+     * @description //饼状图加入数据函数,在收入情况下的图表
+>>>>>>> Stashed changes
      * @Time 2019/7/5 1:01
      */
 

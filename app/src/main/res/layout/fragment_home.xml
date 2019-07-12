@@ -89,7 +89,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#CCCCCC">
+            android:background="#CCCCCC"
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -98,6 +99,7 @@
                 android:text="@string/fragment_home_tv_account_assets"
                 android:textColor="#000000"
                 android:textSize="19sp" />
+
         </LinearLayout>
 
         <ScrollView
@@ -112,6 +114,60 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/Lin_example_item"
+                    android:layout_marginTop="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:orientation="horizontal"
+                    android:background="#FFFFFF">
+
+                    <LinearLayout
+                        android:layout_width="60dp"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+
+                        <ImageView
+                            android:id="@+id/Img_example_bank"
+                            android:layout_width="45dp"
+                            android:layout_height="40sp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/bank_spdb"/>
+
+                        <TextView
+                            android:id="@+id/tv_example_bank_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="13sp"
+                            android:text="浦发银行"
+                            android:textSize="10sp"
+                            android:textStyle="bold"
+                            android:textColor="#000000"
+                            android:gravity="center"/>
+
+                    </LinearLayout>
+                    <TextView
+                        android:id="@+id/tv_example_balance"
+                        android:layout_marginStart="5dp"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:text="￥999999.00"
+                        android:gravity="center|start"
+                        android:textStyle="bold"
+                        android:textColor="#000000"
+                        android:textSize="20sp"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_example_message"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="备注信息"
+                        android:gravity="center"
+                        android:textColor="#000000"/>
+
+                </LinearLayout>
 
             </LinearLayout>
         </ScrollView>
