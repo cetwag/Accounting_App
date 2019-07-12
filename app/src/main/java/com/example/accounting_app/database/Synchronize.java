@@ -3,6 +3,7 @@ package com.example.accounting_app.database;
 import org.litepal.annotation.Column;
 import org.litepal.crud.LitePalSupport;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -14,11 +15,25 @@ import java.util.Date;
  */
 public class Synchronize extends LitePalSupport {
     @Column(nullable = false)
-    int synchronizeStatus;      //同步状态：-1：删除；0：添加；1：修改；9：已同步；
+    private int synchronizeStatus;      //同步状态：-1：删除；0：添加；1：修改；9：已同步；
 
     @Column(nullable = false)
-    Date synchronizeAnchor;     //同步时间戳
+    private Date synchronizeAnchor;     //同步时间戳
 
+    //Synchronize : AssetAccount = 1 : 1
+    private AssetAccount assetAccount;
+
+    //Synchronize : Tally = 1 : 1
+    private Tally tally;
+
+    //Synchronize : Wish = 1 : 1
+    private Wish wish;
+
+    /**
+     * @parameter
+     * @description getter & setter
+     * @Time 2019/7/12 15:36
+     */
     public int getSynchronizeStatus() {
         return synchronizeStatus;
     }
@@ -33,5 +48,29 @@ public class Synchronize extends LitePalSupport {
 
     public void setSynchronizeAnchor(Date synchronizeAnchor) {
         this.synchronizeAnchor = synchronizeAnchor;
+    }
+
+    public AssetAccount getAssetAccount() {
+        return assetAccount;
+    }
+
+    public void setAssetAccount(AssetAccount assetAccount) {
+        this.assetAccount = assetAccount;
+    }
+
+    public Tally getTally() {
+        return tally;
+    }
+
+    public void setTally(Tally tally) {
+        this.tally = tally;
+    }
+
+    public Wish getWish() {
+        return wish;
+    }
+
+    public void setWish(Wish wish) {
+        this.wish = wish;
     }
 }

@@ -2,6 +2,9 @@ package com.example.accounting_app.database;
 
 import org.litepal.crud.LitePalSupport;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @Creator yuebanquan
  * @Version V2.0.0
@@ -12,13 +15,51 @@ import org.litepal.crud.LitePalSupport;
  */
 
 public class User extends LitePalSupport {
-    String userName;    //用户名,还没登陆的时候为空
+    private String userName;    //用户名,还没登陆的时候为空
 
+    //User : AssetAccount = 1 : n
+    private List<AssetAccount> assetAccountList = new ArrayList<AssetAccount>();
+
+    //User : Tally = 1 : n
+    private List<Tally> tallyList = new ArrayList<Tally>();
+
+    //User : Wish = 1 : n
+    private List<Wish> wishList = new ArrayList<Wish>();
+
+    /**
+     * @parameter
+     * @description getter & setter
+     * @Time 2019/7/12 15:36
+     */
     public String getUserName() {
         return userName;
     }
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public List<AssetAccount> getAssetAccountList() {
+        return assetAccountList;
+    }
+
+    public void setAssetAccountList(List<AssetAccount> assetAccountList) {
+        this.assetAccountList = assetAccountList;
+    }
+
+    public List<Tally> getTallyList() {
+        return tallyList;
+    }
+
+    public void setTallyList(List<Tally> tallyList) {
+        this.tallyList = tallyList;
+    }
+
+    public List<Wish> getWishList() {
+        return wishList;
+    }
+
+    public void setWishList(List<Wish> wishList) {
+        this.wishList = wishList;
     }
 }
