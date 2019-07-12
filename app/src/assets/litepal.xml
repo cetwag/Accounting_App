@@ -31,6 +31,7 @@
         <mapping class="com.example.accounting_app.database.Synchronize"/>
         <mapping class="com.example.accounting_app.database.Tally"/>
         <mapping class="com.example.accounting_app.database.User"/>
+        <mapping class="com.example.accounting_app.database.Wish"/>
     </list>
 
     <!--

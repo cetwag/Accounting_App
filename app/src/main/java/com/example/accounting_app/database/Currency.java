@@ -23,7 +23,7 @@ public class Currency extends LitePalSupport {
     private List<AssetAccount> assetAccountList = new ArrayList<>();
 
     //Currency : Tally = n : 1
-    private List<Tally> tallyList = new ArrayList<>();
+    private Tally tallyList;
 
     /**
      * @parameter
@@ -54,12 +54,11 @@ public class Currency extends LitePalSupport {
         this.assetAccountList = assetAccountList;
     }
 
-    public List<Tally> getTallyList() {
+    public Tally getTallyList() {
         return tallyList;
     }
 
-    public void setTallyList(List<Tally> tallyList) {
+    public void setTallyList(Tally tallyList) {
         this.tallyList = tallyList;
     }
-
 }

@@ -1,5 +1,6 @@
 package com.example.accounting_app.activity;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -16,6 +17,8 @@ import com.example.accounting_app.fragment.fragment_statements;
 import com.example.accounting_app.fragment.fragment_wish;
 import com.example.accounting_app.listener.listener_mainactivity;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
+
+import org.litepal.tablemanager.Connector;
 
 import java.util.ArrayList;
 
@@ -62,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         //该类对应的适配器
         adapter.adapter_MainActivity();
 
+        initDb();   //数据库初始化,建表
     }
 
     /**
@@ -84,4 +88,12 @@ public class MainActivity extends AppCompatActivity {
         adapter = new adapter_mainactivity(this);
     }
 
+    /**
+     * @parameter
+     * @description 数据库的初始化
+     * @Time 2019/7/12 16:00
+     */
+    private void initDb() {
+        SQLiteDatabase db = Connector.getDatabase();
+    }
 }
