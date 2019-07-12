@@ -19,7 +19,7 @@ public class AssetAccount extends LitePalSupport {
 
     private String assetAccountBankName;    //银行名称
 
-    private long assetAccountCardNum;       //账户卡号
+    private String assetAccountCardNum;       //账户卡号
 
     @Column(defaultValue = "0.00")
     private String AssetAccountMoney;       //账户金额
@@ -57,11 +57,11 @@ public class AssetAccount extends LitePalSupport {
         this.assetAccountBankName = assetAccountBankName;
     }
 
-    public long getAssetAccountCardNum() {
+    public String getAssetAccountCardNum() {
         return assetAccountCardNum;
     }
 
-    public void setAssetAccountCardNum(long assetAccountCardNum) {
+    public void setAssetAccountCardNum(String assetAccountCardNum) {
         this.assetAccountCardNum = assetAccountCardNum;
     }
 
