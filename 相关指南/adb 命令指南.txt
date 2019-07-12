@@ -1,0 +1,17 @@
+adb shell
+
+su			//获取root权限
+
+cd /data/data/com.example.accounting_app/databases/
+
+sqlite3 AccountingDataBase.db
+
+ctrl+d 退出qlite3
+
+//查询建表语句
+.schema
+
+//查询格式化
+.header on
+.mode column
+.timer on
