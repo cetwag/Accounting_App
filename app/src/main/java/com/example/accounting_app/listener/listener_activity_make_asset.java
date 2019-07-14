@@ -163,7 +163,6 @@ public class listener_activity_make_asset implements View.OnClickListener {
                 break;
             case R.id.save:
                 save_asset();//将输入的数据存入数据库
-                activity_ma.finish();
                 break;
         }
     }
@@ -367,21 +366,21 @@ public class listener_activity_make_asset implements View.OnClickListener {
         assetAccount = new AssetAccount();//创建资产表对象
         if (!TextUtils.isEmpty(string_remarks_message)) {//如果输入的备注信息不为空
             if (!TextUtils.isEmpty(string_input_balance)) {//如果输入的余额不为空
-                if (!TextUtils.isEmpty(string_asset_from )) {//如果资产来源不为空
-                    assetAccount.setAssetAccountBankName(string_asset_from );//存入资产来源
+                if (!TextUtils.isEmpty(string_asset_from)) {//如果资产来源不为空
+                    assetAccount.setAssetAccountType(string_remarks_message);//存入备注信息
+                    assetAccount.setAssetAccountMoney(string_input_balance);//存入余额
+                    assetAccount.setAssetAccountBankName(string_asset_from);//存入资产来源
+                    assetAccount.setAssetAccountCardNum(string_card_number);//卡号可为空，所以放在最后不用判断是否为空
+                    assetAccount.save();
+                    activity_ma.finish();
                 } else {
                     Toast.makeText(activity_ma,
                             "请选择资产来源", Toast.LENGTH_SHORT).show();
                 }
-                assetAccount.setAssetAccountMoney(string_input_balance);//存入余额
             } else {
                 Toast.makeText(activity_ma,
                         "请输入余额", Toast.LENGTH_SHORT).show();
             }
-            assetAccount.setAssetAccountType(string_remarks_message);//存入备注信息
-            assetAccount.setAssetAccountCardNum(string_card_number);//卡号可为空，所以放在最后不用判断是否为空
-            assetAccount.save();
-            activity_ma.finish();
         } else {
             Toast.makeText(activity_ma,
                     "请输入备注信息", Toast.LENGTH_SHORT).show();

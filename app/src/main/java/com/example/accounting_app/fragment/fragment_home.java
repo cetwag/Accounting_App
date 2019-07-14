@@ -59,6 +59,7 @@ public class fragment_home extends Fragment {
     TextView tv_example_bank_name;
     TextView tv_example_balance;
     TextView tv_example_message;
+    LinearLayout Lin_second_item;
 
     LinearLayout Lin_example_item;//示例控件的最外围布局,找到后用汉语隐藏示例item
 
@@ -131,6 +132,7 @@ public class fragment_home extends Fragment {
         tv_example_message = getView().findViewById(R.id.tv_example_message);
         tv_net_assets = getView().findViewById(R.id.tv_net_assets);
         tv_all_assets = getView().findViewById(R.id.tv_all_assets);
+        Lin_second_item = getView().findViewById(R.id.Lin_second_item);
 
     }
 
@@ -244,18 +246,20 @@ public class fragment_home extends Fragment {
             all_asset_number += Double.parseDouble(Balance);
 
             //动态编写第一层布局，水平方向
+            ViewGroup.LayoutParams layoutParams_first = Lin_example_item.getLayoutParams();//获取已有的动态第一层布局
             LinearLayout first = new LinearLayout(getContext());//动态创建第一层的布局
             //设置第一层布局的大小等属性
-            LinearLayout.LayoutParams first_Params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 160);
+            LinearLayout.LayoutParams first_Params = new LinearLayout.LayoutParams(layoutParams_first.width,layoutParams_first.height);
             first_Params.setMargins(0, 16, 0, 0);//设置边距
             first.setBackgroundResource(R.drawable.line_block);//第一层布局设置为白色带边框背景
             first.setLayoutParams(first_Params);//将上面的大小和边距属性赋给第一层布局
             //第一层布局编写完毕
 
             //第二层布局，垂直的放置银行图案和银行文字的布局
+            ViewGroup.LayoutParams layoutParams_second = Lin_second_item.getLayoutParams();//获取已有的动态第一层布局
             LinearLayout twice = new LinearLayout(getContext());//动态创建第二层的布局
             //设置第二层布局的大小等属性
-            LinearLayout.LayoutParams twice_Params = new LinearLayout.LayoutParams(185, ViewGroup.LayoutParams.MATCH_PARENT);
+            LinearLayout.LayoutParams twice_Params = new LinearLayout.LayoutParams(layoutParams_second.width, layoutParams_second.height);
             twice.setOrientation(LinearLayout.VERTICAL);//设置为垂直方向布局
             twice.setLayoutParams(twice_Params);//将上面的大小和边距属性赋给第二层布局
             //第二层布局编写完毕

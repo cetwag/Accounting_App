@@ -36,5 +36,15 @@ public class type_or_format_conversion {
         return format.format(date);
     }
 
+    /**
+     * @parameter date传入的Date型日期
+     * @description 将传入的Date型日期数据转换为字符串并格式化，年月日时分秒都取
+     * @Time 2019/6/29 11:14
+     */
+    public String getTimeYMDhhmmss(Date date) {
+        //这里有个问题，取出的时分秒不一和电脑的不一致，但比较大小够用了，后期更改！
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return format.format(date);
+    }
 
 }

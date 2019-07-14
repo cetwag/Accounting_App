@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/wechat"
+        app:showAsAction="never"
+        android:icon="@drawable/bank_wechat"
+        android:orderInCategory="100"
+        android:title="微信" />
+    <item
+        android:id="@+id/alipay"
+        app:showAsAction="never"
+        android:icon="@drawable/bank_alipay"
+        android:orderInCategory="100"
+        android:title="支付宝" />
+    <item
+        android:id="@+id/icbc"
+        app:showAsAction="never"
+        android:icon="@drawable/bank_icbc"
+        android:orderInCategory="100"
+        android:title="工商银行" />
+    <item
+        android:id="@+id/spdb"
+        android:icon="@drawable/bank_spdb"
+        android:title="浦发银行" />
+    <item
+        android:id="@+id/cmb"
+        app:showAsAction="never"
+        android:icon="@drawable/bank_cmb"
+        android:orderInCategory="100"
+        android:title="招商银行" />
+    <item
+        android:id="@+id/bcm"
+        app:showAsAction="never"
+        android:icon="@drawable/bank_bcm"
+        android:orderInCategory="100"
+        android:title="交通银行" />
+    <item
+        android:id="@+id/ccb"
+        app:showAsAction="never"
+        android:icon="@drawable/bank_ccb"
+        android:orderInCategory="100"
+        android:title="建设银行" />
+    <item
+        android:id="@+id/boc"
+        app:showAsAction="never"
+        android:icon="@drawable/bank_boc"
+        android:orderInCategory="100"
+        android:title="中国银行" />
+    <item
+        android:id="@+id/abc"
+        app:showAsAction="never"
+        android:icon="@drawable/bank_abc"
+        android:orderInCategory="100"
+        android:title="农业银行" />
+</menu>

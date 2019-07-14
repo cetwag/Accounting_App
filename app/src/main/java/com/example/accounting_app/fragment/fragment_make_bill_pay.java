@@ -7,8 +7,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
@@ -32,6 +36,10 @@ public class fragment_make_bill_pay extends Fragment {
     public RadioButton rdb_select_time_pay;
     public TimePickerView pvTime;//时间选择器
     type_or_format_conversion t;//功能类对象
+    public Button btn_determine_pay;//最终确认按钮
+    public ImageButton Imgbtn_select_from_pay;
+    public EditText edt_input_money_pay,edt_remarks_message_pay;
+    public TextView tv_from_pay;
     public RadioGroup rdg_1, rdg_2, rdg_3;
     public RadioButton rdb_food, rdb_travel, rdb_shop, rdb_traffic, rdb_communication,
             rdb_hospital, rdb_house, rdb_child, rdb_teach, rdb_play, rdb_pet, rdb_life;
@@ -64,6 +72,7 @@ public class fragment_make_bill_pay extends Fragment {
 
         //监听类函数功能
         listener.listener_Fragment_make_bill_pay();
+
     }
 
     /**
@@ -90,6 +99,11 @@ public class fragment_make_bill_pay extends Fragment {
         rdb_play = getView().findViewById(R.id.rdb_play);
         rdb_pet = getView().findViewById(R.id.rdb_pet);
         rdb_life = getView().findViewById(R.id.rdb_life);
+        btn_determine_pay = getView().findViewById(R.id.btn_determine_pay);
+        Imgbtn_select_from_pay = getView().findViewById(R.id.Imgbtn_select_from_pay);
+        tv_from_pay = getView().findViewById(R.id.tv_from_pay);
+        edt_input_money_pay = getView().findViewById(R.id.edt_input_money_pay);
+        edt_remarks_message_pay = getView().findViewById(R.id.edt_remarks_message_pay);
     }
 
     /**
