@@ -3,8 +3,6 @@ package com.example.accounting_app.listener;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 
@@ -59,27 +57,19 @@ public class listener_mainactivity implements View.OnClickListener {
                 switch (i) {
                     case 0:
                         mainactivity.rdb_home.setChecked(true);
-                        Log.d("test", mainactivity.viewpager.getCurrentItem()+"");
                         mainactivity.viewpager.setAllowedSwipeDirection(CustomViewPager.SwipeDirection.right);
-                        Log.d("test1", "ok");
                         break;
                     case 1:
                         mainactivity.rdb_bill.setChecked(true);
-                        Log.d("test", mainactivity.viewpager.getCurrentItem()+"");
                         mainactivity.viewpager.setAllowedSwipeDirection(CustomViewPager.SwipeDirection.all);
-                        Log.d("test1", "ok");
                         break;
                     case 2:
                         mainactivity.rdb_wish.setChecked(true);
-                        Log.d("test", mainactivity.viewpager.getCurrentItem()+"");
                         mainactivity.viewpager.setAllowedSwipeDirection(CustomViewPager.SwipeDirection.all);
-                        Log.d("test1", "ok");
                         break;
                     case 3:
                         mainactivity.rdb_statements.setChecked(true);
-                        Log.d("test", mainactivity.viewpager.getCurrentItem()+"");
                         mainactivity.viewpager.setAllowedSwipeDirection(CustomViewPager.SwipeDirection.all);
-                        Log.d("test1", "ok");
                         break;
                 }
             }
@@ -102,7 +92,6 @@ public class listener_mainactivity implements View.OnClickListener {
         mainactivity.rdb_wish.setOnClickListener(this);
         mainactivity.rdb_statements.setOnClickListener(this);
         mainactivity.rdb_add.setOnClickListener(this);
-        viewpager_limit();
     }
 
     /**
@@ -150,7 +139,6 @@ public class listener_mainactivity implements View.OnClickListener {
                     public void onClick(View v) {
                         Intent intent_make_asset = new Intent(mainactivity, activity_make_asset.class);
                         mainactivity.startActivity(intent_make_asset);
-
                     }
                 });
                 btn_make_wish.setOnClickListener(new View.OnClickListener() {
@@ -163,14 +151,5 @@ public class listener_mainactivity implements View.OnClickListener {
                 });
                 break;
         }
-    }
-
-    /**
-     *@parameter
-     *@description 限定viewpager的滑动是否禁止
-     *@Time 2019/6/30 20:25
-     */
-    void viewpager_limit(){
-
     }
 }

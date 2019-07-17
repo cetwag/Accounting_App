@@ -66,6 +66,10 @@ public class fragment_home extends Fragment {
     TextView tv_net_assets;//净资产
     TextView tv_all_assets;//总资产
 
+    //首页的总资产，净资产和负资产的计算变量，放在这里用个static方便调用计算
+    double own_asset_number;//净资产初始化
+    double all_asset_number;//总资产初始化
+
 
     @Nullable
     @Override
@@ -234,8 +238,10 @@ public class fragment_home extends Fragment {
      * @Time 2019/7/12 22:29
      */
     void create_asset_item(List<AssetAccount> list) {
-        double own_asset_number = 0;//净资产初始化
-        double all_asset_number = 0;//总资产初始化
+
+        own_asset_number = 0;//净资产初始化
+        all_asset_number = 0;//总资产初始化
+
         for (int i = 0; i < list.size(); i++) {//遍历对应表里的数据
             String BankName = list.get(i).getAssetAccountBankName();//取出银行名称
             String Balance = list.get(i).getAssetAccountMoney();//取出余额
@@ -249,7 +255,7 @@ public class fragment_home extends Fragment {
             ViewGroup.LayoutParams layoutParams_first = Lin_example_item.getLayoutParams();//获取已有的动态第一层布局
             LinearLayout first = new LinearLayout(getContext());//动态创建第一层的布局
             //设置第一层布局的大小等属性
-            LinearLayout.LayoutParams first_Params = new LinearLayout.LayoutParams(layoutParams_first.width,layoutParams_first.height);
+            LinearLayout.LayoutParams first_Params = new LinearLayout.LayoutParams(layoutParams_first.width, layoutParams_first.height);
             first_Params.setMargins(0, 16, 0, 0);//设置边距
             first.setBackgroundResource(R.drawable.line_block);//第一层布局设置为白色带边框背景
             first.setLayoutParams(first_Params);//将上面的大小和边距属性赋给第一层布局
@@ -308,7 +314,7 @@ public class fragment_home extends Fragment {
             bank_name_Params.gravity = Gravity.CENTER;
             bank_name.setLayoutParams(bank_name_Params);//将银行名称加到它自己的布局中
             bank_name.setText(BankName);//给银行名称设置文字内容
-            bank_name.setTextColor(getResources().getColor(R.color.black));
+            bank_name.setTextColor(getResources().getColor(R.color.black,null));
             bank_name.setTypeface(Typeface.SANS_SERIF, Typeface.BOLD);//字体加粗
             bank_name.setTextSize(11);
             //银行名称编写完毕
@@ -320,7 +326,7 @@ public class fragment_home extends Fragment {
             balance_Params.gravity = Gravity.CENTER;
             balance.setLayoutParams(balance_Params);//将余额加到它自己的布局中
             balance.setText("￥" + Balance);//给余额设置文字内容
-            balance.setTextColor(getResources().getColor(R.color.black));
+            balance.setTextColor(getResources().getColor(R.color.black,null));
             balance.setTypeface(Typeface.SANS_SERIF, Typeface.BOLD);//字体加粗
             balance.setTextSize(20);
             //余额编写完毕
@@ -332,7 +338,7 @@ public class fragment_home extends Fragment {
             message_Params.gravity = Gravity.CENTER;
             message.setLayoutParams(message_Params);//将余额加到它自己的布局中
             message.setText(Message);//给余额设置文字内容
-            message.setTextColor(getResources().getColor(R.color.black));
+            message.setTextColor(getResources().getColor(R.color.black,null));
             message.setTextSize(15);
             //备注信息编写完毕
 
@@ -344,8 +350,8 @@ public class fragment_home extends Fragment {
             Lin_asset_item.addView(first);//第一层加入总布局中
         }
         //循环完毕后，将计算出的最终的金额结果显示出来
-        tv_net_assets.setText("净资产￥"+own_asset_number);
-        tv_all_assets.setText("总资产￥"+all_asset_number);
+        tv_net_assets.setText("净资产￥" + own_asset_number);
+        tv_all_assets.setText("总资产￥" + all_asset_number);
     }
 
     @Override

@@ -3,7 +3,6 @@ package com.example.accounting_app.activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -11,17 +10,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.accounting_app.R;
 import com.example.accounting_app.adapter.adapter_activity_make_asset;
-import com.example.accounting_app.database.AssetAccount;
 import com.example.accounting_app.listener.listener_activity_make_asset;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 
-import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Map;
 
 /**
  * @Creator cetway yuebanquan

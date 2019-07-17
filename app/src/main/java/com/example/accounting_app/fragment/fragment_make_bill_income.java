@@ -7,8 +7,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
@@ -35,6 +39,11 @@ public class fragment_make_bill_income extends Fragment {
     public RadioGroup rdg_1, rdg_2;
     public RadioButton rdb_bonus, rdb_wages, rdb_invest_profit, rdb_reimbursement,
             rdb_borrow, rdb_invest_recovery, rdb_debts_collection, rdb_red_envelope;
+    public EditText edt_input_money_income;//收入金额输入框
+    public TextView tv_from_income;//收入到的银行
+    public EditText edt_remarks_message_income;
+    public ImageButton Imgbtn_select_from_income;
+    public Button btn_determine_income;
 
     @Nullable
     @Override
@@ -86,6 +95,11 @@ public class fragment_make_bill_income extends Fragment {
         rdb_invest_recovery =getView().findViewById(R.id.rdb_invest_recovery);
         rdb_debts_collection =getView().findViewById(R.id.rdb_debts_collection);
         rdb_red_envelope =getView().findViewById(R.id.rdb_red_envelope);
+        edt_input_money_income =getView().findViewById(R.id.edt_input_money_income);
+        tv_from_income = getView().findViewById(R.id.tv_from_income);
+        edt_remarks_message_income = getView().findViewById(R.id.edt_remarks_message_income);
+        Imgbtn_select_from_income = getView().findViewById(R.id.Imgbtn_select_from_income);
+        btn_determine_income = getView().findViewById(R.id.btn_determine_income);
     }
 
     /**

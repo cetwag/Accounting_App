@@ -1,22 +1,27 @@
 package com.example.accounting_app.listener;
 
+import android.content.ContentValues;
+import android.content.Intent;
 import android.support.v7.view.menu.MenuPopupHelper;
 import android.support.v7.widget.PopupMenu;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import com.example.accounting_app.R;
+import com.example.accounting_app.activity.MainActivity;
+import com.example.accounting_app.database.AssetAccount;
 import com.example.accounting_app.database.Classify;
 import com.example.accounting_app.database.Tally;
 import com.example.accounting_app.fragment.fragment_make_bill_pay;
 
 import org.litepal.LitePal;
+import org.litepal.crud.callback.FindMultiCallback;
 
 import java.lang.reflect.Field;
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -29,7 +34,7 @@ public class listener_fragment_make_bill_pay implements View.OnClickListener {
 
     fragment_make_bill_pay frag_mbp;
     Tally tally;
-    String type_name;//用来存放点击类别的名字
+    String type_name = "餐饮";//用来存放点击类别的名字
 
     /**
      * @parameter
@@ -76,7 +81,6 @@ public class listener_fragment_make_bill_pay implements View.OnClickListener {
             case R.id.rdb_food:
                 frag_mbp.rdg_2.clearCheck();
                 frag_mbp.rdg_3.clearCheck();
-                type_name = "餐饮";
                 break;
             case R.id.rdb_travel:
                 frag_mbp.rdg_2.clearCheck();
@@ -134,7 +138,7 @@ public class listener_fragment_make_bill_pay implements View.OnClickListener {
                 type_name = "生活";
                 break;
             case R.id.Imgbtn_select_from_pay:
-                select_from();
+                select_from_pay();
                 break;
             case R.id.btn_determine_pay:
                 save_pay();
@@ -147,7 +151,7 @@ public class listener_fragment_make_bill_pay implements View.OnClickListener {
      * @description 点击资产来源产生可选择项的功能函数
      * @Time 2019/7/14 23:14
      */
-    void select_from() {
+    void select_from_pay() {
         PopupMenu popup_from_pay = new PopupMenu(frag_mbp.getContext(), frag_mbp.Imgbtn_select_from_pay);//java创建一个弹出菜单
         popup_from_pay.getMenuInflater().inflate(R.menu.pop_img_make_bill_pay, popup_from_pay.getMenu());//找到布局
         popup_from_pay.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -222,11 +226,47 @@ public class listener_fragment_make_bill_pay implements View.OnClickListener {
             tally = new Tally();
             tally.setTallyMoney(string_input_money_pay);//将输入的金额存入数据库
             tally.setTallyComment(string_remarks_message_pay);//将输入的备注存入数据库
-            Classify classify = LitePal.where("classifyname  == ?", type_name).findFirst(Classify.class);//找到满足条件的第一个数据
-            classify.getTallyList().add(tally);//关联
+            tally.setTallyDate(date);
+            Classify classify = LitePal.where("classifyName  == ?", type_name).findFirst(Classify.class);//找到满足条件的第一个数据
+            classify.getTallyList().add(tally);//关联类别表
+            AssetAccount assetAccount = LitePal.where
+                    ("assetAccountBankName  == ?", frag_mbp.tv_from_pay.getText().toString())
+                    .findFirst(AssetAccount.class);
+            assetAccount.getTallyList().add(tally);//关联资产表
+            getInformationpay(string_input_money_pay);
+            assetAccount.save();
+            classify.save();
             tally.save();
-        }else{
-            Toast.makeText(frag_mbp.getContext(),"请输入支出金额", Toast.LENGTH_SHORT).show();
+            frag_mbp.getActivity().finish();
+        } else {
+            Toast.makeText(frag_mbp.getContext(), "请输入支出金额", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    /**
+     * @parameter  参数为输入的记账金额
+     * @description 遍历获取数据库内容
+     * @Time 2019/7/16 19:39
+     */
+    void getInformationpay(final String tallyMoney) {
+        /**
+         * 异步取数据库中的数据,用于计算资产
+         */
+        LitePal.findAllAsync(Tally.class).listen(new FindMultiCallback<Tally>() {
+            @Override
+            public void onFinish(List<Tally> list) {
+                list = LitePal.findAll(Tally.class, true);//找到所有数据,其中的参数ture要注意
+
+                for (int i = 0; i < list.size(); i++) {
+                    String bankNmae = list.get(i).getAssetAccount().getAssetAccountBankName();//获取资产银行名称
+                    String assetMessage = list.get(i).getAssetAccount().getAssetAccountType();//获取资产备注信息
+                    String assetMoney = list.get(i).getAssetAccount().getAssetAccountMoney();//获取对应资产中的金额
+                    String nowMoney = Double.parseDouble(assetMoney) - Double.parseDouble(tallyMoney) + "";
+                    ContentValues values = new ContentValues();
+                    values.put("assetaccountmoney", nowMoney);
+                    LitePal.updateAll(AssetAccount.class, values, "assetaccountbankname = ? and assetaccounttype = ?", bankNmae, assetMessage);
+                }
+            }
+        });
     }
 }

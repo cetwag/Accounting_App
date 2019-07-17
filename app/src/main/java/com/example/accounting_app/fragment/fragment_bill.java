@@ -1,24 +1,35 @@
 package com.example.accounting_app.fragment;
 
+
+import android.content.ContentValues;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
 
 import com.example.accounting_app.R;
+import com.example.accounting_app.database.AssetAccount;
+import com.example.accounting_app.database.Tally;
 import com.example.accounting_app.listener.listener_fragment_bill;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
+
+import org.litepal.LitePal;
+import org.litepal.crud.callback.FindMultiCallback;
+
+import java.util.List;
 
 
 /**
@@ -43,6 +54,11 @@ public class fragment_bill extends Fragment {
             ckb_unexpected, ckb_income_other, ckb_reimbursement, ckb_internal_transfer, ckb_deposit,
             ckb_collect_debts, ckb_return_credit_card, ckb_other_other;
     public CheckBox[] checkboxes;
+    LinearLayout Lin_bill_item;
+    LinearLayout Lin_example_first_hor, Lin_example_second_ver1, Lin_example_second_ver2;
+    ImageView Img_example_icon;
+    TextView tv_example_name, tv_example_message, tv_example_bank, tv_example_money;
+    View view_example_occupy;
 
 
     @Nullable
@@ -66,7 +82,11 @@ public class fragment_bill extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        //该碎片控件等初始化
         init();
+
+        //监听类功能函数
         listener.listener_fb();
     }
 
@@ -108,7 +128,239 @@ public class fragment_bill extends Fragment {
                 ckb_unexpected, ckb_income_other, ckb_reimbursement, ckb_internal_transfer, ckb_deposit,
                 ckb_collect_debts, ckb_return_credit_card, ckb_other_other};
         listener = new listener_fragment_bill(this);
+        Lin_bill_item = getView().findViewById(R.id.Lin_bill_item);
+        Lin_example_first_hor = getView().findViewById(R.id.Lin_example_first_hor);
+        Lin_example_second_ver1 = getView().findViewById(R.id.Lin_example_second_ver1);
+        Lin_example_second_ver2 = getView().findViewById(R.id.Lin_example_second_ver2);
+        Img_example_icon = getView().findViewById(R.id.Img_example_icon);
+        tv_example_name = getView().findViewById(R.id.tv_example_name);
+        tv_example_message = getView().findViewById(R.id.tv_example_message);
+        tv_example_bank = getView().findViewById(R.id.tv_example_bank);
+        tv_example_money = getView().findViewById(R.id.tv_example_money);
+        view_example_occupy = getView().findViewById(R.id.view_example_occupy);
+        Lin_example_first_hor.setVisibility(View.GONE);//隐藏示例item
     }
 
+    /**
+     * @parameter
+     * @description 重写暂停事件，暂停的时候就清空内容
+     * @Time 2019/7/15 1:16
+     */
+    @Override
+    public void onPause() {
+        super.onPause();
+        Lin_bill_item.removeAllViews();//清空所有item项
+    }
 
+    /**
+     * @parameter
+     * @description 重写onResume恢复的时候重写异步取数据
+     * @Time 2019/7/15 1:18
+     */
+    @Override
+    public void onResume() {
+        super.onResume();
+        /**
+         * 异步取数据库中的数据,并创建资产项
+         */
+        LitePal.findAllAsync(Tally.class).listen(new FindMultiCallback<Tally>() {
+            @Override
+            public void onFinish(List<Tally> list) {
+                list = LitePal.findAll(Tally.class, true);//找到所有数据,其中的参数ture要注意
+                create_bill_item(list);
+            }
+        });
+    }
+
+    /**
+     * @parameter
+     * @description 动态加载账单item功能函数
+     * @Time 2019/7/15 1:48
+     */
+    void create_bill_item(List<Tally> list) {
+
+        for (int i = 0; i < list.size(); i++) {//遍历对应表里的数据
+
+            String typeName = list.get(i).getClassify().getClassifyName();//取出类别名称
+            String tallyMessage = list.get(i).getTallyComment();//取出备注信息
+            String accountFrom = list.get(i).getAssetAccount().getAssetAccountBankName();//取出资产来源
+            String tallyMoney = list.get(i).getTallyMoney();//取出支出或收入的金额
+            int type = list.get(i).getClassify().getClassifyType();//获取是支出还是收入项
+
+            //动态编写第一层布局，水平方向
+            ViewGroup.LayoutParams layoutParams_first = Lin_example_first_hor.getLayoutParams();//获取已有的动态第一层布局
+            LinearLayout first = new LinearLayout(getContext());//动态创建第一层的布局
+            //设置第一层布局的大小等属性
+            LinearLayout.LayoutParams first_Params = new LinearLayout.LayoutParams(layoutParams_first.width, layoutParams_first.height);
+            first_Params.setMargins(0, 25, 0, 0);//设置边距
+            first.setBackgroundResource(R.drawable.line_block);//第一层布局设置为白色带边框背景
+            first.setLayoutParams(first_Params);//将上面的大小和边距属性赋给第一层布局
+            //第一层布局编写完毕
+
+            //第二层布局(垂直1)
+            ViewGroup.LayoutParams layoutParams_second = Lin_example_second_ver1.getLayoutParams();//获取已有的动态第二层布局
+            LinearLayout twice = new LinearLayout(getContext());//动态创建第二层的布局
+            //设置第二层布局的大小等属性
+            LinearLayout.LayoutParams twice_Params = new LinearLayout.LayoutParams(layoutParams_second.width, layoutParams_second.height);
+            twice_Params.setMargins(10, 0, 00, 0);
+            twice.setOrientation(LinearLayout.VERTICAL);//设置为垂直方向布局
+            twice.setLayoutParams(twice_Params);//将上面的大小和边距属性赋给第二层布局
+            //第二层布局编写完毕
+
+            //类别图案编写
+            ImageView type_icon = new ImageView(getContext());
+            ViewGroup.LayoutParams layoutParams_bank = Img_example_icon.getLayoutParams();//获取已有的类别图案布局
+            LinearLayout.LayoutParams bank_Params = new LinearLayout.LayoutParams(layoutParams_bank.width, layoutParams_bank.height);
+            bank_Params.setMargins(20, 0, 0, 0);
+            bank_Params.gravity = Gravity.CENTER;
+            type_icon.setLayoutParams(bank_Params);//将类别图案加到它自己的布局中
+            switch (typeName) {
+                case "餐饮":
+                    type_icon.setBackgroundResource(R.drawable.ic_local_dining_black_24dp2);
+                    break;
+                case "旅行":
+                    type_icon.setBackgroundResource(R.drawable.ic_airplanemode_active_black_24dp2);
+                    break;
+                case "购物":
+                    type_icon.setBackgroundResource(R.drawable.ic_shopping_cart_black_24dp2);
+                    break;
+                case "交通":
+                    type_icon.setBackgroundResource(R.drawable.ic_subway_black_24dp2);
+                    break;
+                case "通讯":
+                    type_icon.setBackgroundResource(R.drawable.ic_phone_in_talk_black_24dp2);
+                    break;
+                case "医疗":
+                    type_icon.setBackgroundResource(R.drawable.ic_local_hospital_black_24dp2);
+                    break;
+                case "住房":
+                    type_icon.setBackgroundResource(R.drawable.ic_home_black_24dp_big2);
+                    break;
+                case "育儿":
+                    type_icon.setBackgroundResource(R.drawable.ic_child_care_black_24dp2);
+                    break;
+                case "文教":
+                    type_icon.setBackgroundResource(R.drawable.ic_school_black_24dp2);
+                    break;
+                case "娱乐":
+                    type_icon.setBackgroundResource(R.drawable.ic_rowing_black_24dp2);
+                    break;
+                case "宠物":
+                    type_icon.setBackgroundResource(R.drawable.ic_pets_black_24dp2);
+                    break;
+                case "生活":
+                    type_icon.setBackgroundResource(R.drawable.ic_headset_mic_black_24dp2);
+                    break;
+                case "奖金":
+                    type_icon.setBackgroundResource(R.drawable.ic_monetization_on_black_24dp2);
+                    break;
+                case "工资":
+                    type_icon.setBackgroundResource(R.drawable.ic_local_atm_black_24dp2);
+                    break;
+                case "投资收益":
+                    type_icon.setBackgroundResource(R.drawable.ic_trending_up_black_24dp2);
+                    break;
+                case "报销":
+                    type_icon.setBackgroundResource(R.drawable.ic_add_shopping_cart_black_24dp2);
+                    break;
+                case "借入":
+                    type_icon.setBackgroundResource(R.drawable.ic_play_for_work_black_24dp2);
+                    break;
+                case "投资回收":
+                    type_icon.setBackgroundResource(R.drawable.ic_rotate_left_black_24dp2);
+                    break;
+                case "收债":
+                    type_icon.setBackgroundResource(R.drawable.ic_person_add_black_24dp2);
+                    break;
+                case "红包":
+                    type_icon.setBackgroundResource(R.drawable.ic_format_indent_increase_black_24dp2);
+                    break;
+            }
+
+            //类别图案编写完毕
+
+            //类别名称编写
+            TextView type_name = new TextView(getContext());
+            ViewGroup.LayoutParams layoutParams_type_name = tv_example_name.getLayoutParams();//获取已有的类别名称布局
+            LinearLayout.LayoutParams type_name_Params = new LinearLayout.LayoutParams(layoutParams_type_name.width, layoutParams_type_name.height);
+            type_name_Params.setMargins(0, 0, 0, 0);//设置边距
+            type_name_Params.gravity = Gravity.CENTER;
+            type_name_Params.gravity = Gravity.START;
+            type_name.setLayoutParams(type_name_Params);//将类别名称加到它自己的布局中
+            type_name.setText(typeName);//给类别名称设置文字内容
+            type_name.setTextColor(getResources().getColor(R.color.black));
+            type_name.setTextSize(17);
+            //类别名称编写完毕
+
+            //备注信息文字显示编写
+            TextView message = new TextView(getContext());
+            ViewGroup.LayoutParams layoutParams_message = tv_example_message.getLayoutParams();//获取已有的备注信息名称布局
+            LinearLayout.LayoutParams message_Params = new LinearLayout.LayoutParams(layoutParams_message.width, layoutParams_message.height);
+            message_Params.setMargins(0, 0, 0, 0);//设置边距
+            message_Params.gravity = Gravity.CENTER;
+            message_Params.gravity = Gravity.START;
+            message.setLayoutParams(message_Params);//将备注信息加到它自己的布局中
+            message.setText(tallyMessage);//给备注信息设置文字内容
+            //备注信息编写完毕
+
+            //占位view编写
+            //view_example_occupy
+            View occupy_view = new View(getContext());
+            ViewGroup.LayoutParams layoutParams_view_example_occupy = view_example_occupy.getLayoutParams();//获取已有的占位view布局
+            LinearLayout.LayoutParams occupy_view_Params = new LinearLayout.LayoutParams(layoutParams_view_example_occupy.width, layoutParams_view_example_occupy.height);
+            occupy_view.setLayoutParams(occupy_view_Params);//将占位布局给到自己
+
+            //第三层布局(垂直2)
+            ViewGroup.LayoutParams layoutParams_third = Lin_example_second_ver2.getLayoutParams();//获取已有的动态第三层布局
+            LinearLayout third = new LinearLayout(getContext());//动态创建第三层的布局
+            //设置第三层布局的大小等属性
+            LinearLayout.LayoutParams third_Params = new LinearLayout.LayoutParams(layoutParams_third.width, layoutParams_third.height);
+            third.setOrientation(LinearLayout.VERTICAL);//设置为垂直方向布局
+            third.setLayoutParams(third_Params);//将上面的大小和边距属性赋给第三层布局
+            //第三层布局编写完毕
+
+            //银行名称编写
+            TextView banke_name = new TextView(getContext());
+            ViewGroup.LayoutParams layoutParams_banke_name = tv_example_bank.getLayoutParams();//获取已有的银行名称布局
+            LinearLayout.LayoutParams banke_name_Params = new LinearLayout.LayoutParams(layoutParams_banke_name.width, layoutParams_banke_name.height);
+            banke_name_Params.gravity = Gravity.CENTER;
+            banke_name_Params.gravity = Gravity.END;
+            banke_name.setLayoutParams(banke_name_Params);//将银行名称加到它自己的布局中
+            banke_name.setText(accountFrom);//给银行名称设置文字内容
+            banke_name.setTextColor(getResources().getColor(R.color.black));
+            banke_name.setTextSize(17);
+            if (type == 0) {//支出颜色为红色
+                banke_name.setTextColor(getResources().getColor(R.color.red));
+            } else {//收入颜色为绿色
+                banke_name.setTextColor(getResources().getColor(R.color.green));
+            }
+            //银行名称编写完毕
+
+            //金额编写
+            TextView money = new TextView(getContext());
+            ViewGroup.LayoutParams layoutParams_money = tv_example_money.getLayoutParams();//获取已有的金额布局
+            LinearLayout.LayoutParams money_Params = new LinearLayout.LayoutParams(layoutParams_money.width, layoutParams_money.height);
+            message_Params.gravity = Gravity.CENTER;
+            message_Params.gravity = Gravity.END;
+            money.setLayoutParams(money_Params);//将金额加到它自己的布局中
+            money.setText(tallyMoney);//给金额设置文字内容
+            if (type == 0) {//支出颜色为红色
+                money.setTextColor(getResources().getColor(R.color.red));
+            } else {//收入颜色为绿色
+                money.setTextColor(getResources().getColor(R.color.green));
+            }
+            //金额编写完毕
+
+            Lin_bill_item.addView(first);//将第一层降入到xml总布局中
+            first.addView(type_icon);//将类别图案加入到第一层中
+            first.addView(twice);//将第二层加入到第一层中
+            twice.addView(type_name);//将类别名字加入到第二层布局中
+            twice.addView(message);//将备注信息加入到第二层布局中
+            first.addView(occupy_view);//将占位view加入到第一层布局中
+            first.addView(third);//将第三层加入到第一层中
+            third.addView(banke_name);//将银行名称加入到第三层布局中
+            third.addView(money);//将金额放入第三层布局中
+
+        }
+    }
 }

@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -25,7 +26,7 @@ import com.yatoooon.screenadaptation.ScreenAdapterTools;
  */
 public class fragment_statements extends Fragment {
 
-    Pie_Chart piec;//图表功能类
+     public Pie_Chart piec;//图表功能类
 
     //报表碎片中的日期选择弹窗的标志
     public static final int FRAGMENT_STATEMENTS_SELECT_TIME = 2;
@@ -34,6 +35,9 @@ public class fragment_statements extends Fragment {
     public Spinner spi_income_pay;
     adapter_fragment_statements adapter;
     public com.github.mikephil.charting.charts.PieChart piechart;
+
+    public LinearLayout Lin_statements_item;
+
 
     @Nullable
     @Override
@@ -68,6 +72,9 @@ public class fragment_statements extends Fragment {
 
         //饼状图绘制
         piec.pie_chart_data_pay();
+
+        //饼状图监听绘制
+        listener.select_pay_income();
     }
 
     /**
@@ -82,5 +89,6 @@ public class fragment_statements extends Fragment {
         listener = new listener_fragment_statements(this);
         adapter = new adapter_fragment_statements(this);
         piec = new Pie_Chart(this);
+        Lin_statements_item = getView().findViewById(R.id.Lin_statements_item);
     }
 }
