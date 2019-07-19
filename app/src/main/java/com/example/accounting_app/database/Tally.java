@@ -20,7 +20,7 @@ public class Tally extends LitePalSupport {
     private String tallyMoney;       //记账金额
 
     @Column(nullable = false)
-    private Date tallyDate;         //记账日期
+    private String tallyDate;         //记账日期
 
     //Tally : User = n : 1
     private User user;
@@ -58,11 +58,11 @@ public class Tally extends LitePalSupport {
         this.tallyMoney = tallyMoney;
     }
 
-    public Date getTallyDate() {
+    public String getTallyDate() {
         return tallyDate;
     }
 
-    public void setTallyDate(Date tallyDate) {
+    public void setTallyDate(String tallyDate) {
         this.tallyDate = tallyDate;
     }
 

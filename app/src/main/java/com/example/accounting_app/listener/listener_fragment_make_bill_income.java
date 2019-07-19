@@ -15,6 +15,7 @@ import com.example.accounting_app.database.AssetAccount;
 import com.example.accounting_app.database.Classify;
 import com.example.accounting_app.database.Tally;
 import com.example.accounting_app.fragment.fragment_make_bill_income;
+import com.example.accounting_app.function.type_or_format_conversion;
 
 import org.litepal.LitePal;
 import org.litepal.crud.callback.FindMultiCallback;
@@ -31,8 +32,8 @@ import java.util.List;
  */
 public class listener_fragment_make_bill_income implements View.OnClickListener {
     fragment_make_bill_income frag_mbi;
-    String incomeType="奖金";
-
+    String incomeType = "奖金";
+    type_or_format_conversion function = new type_or_format_conversion();
 
     /**
      * @parameter
@@ -131,12 +132,13 @@ public class listener_fragment_make_bill_income implements View.OnClickListener 
         //tv_from_income 收入到的具体银行名称
         String incomeMoney = frag_mbi.edt_input_money_income.getText().toString();//获取输入的收入金额
         Date date = new Date();//获取收入的时间
+        String string_time = function.getTimeYMDhhmmss(date);
         String incomeMessage = frag_mbi.edt_remarks_message_income.getText().toString();//获取输入的备注信息
         String incomeBank = frag_mbi.tv_from_income.getText().toString();//获取最终收入的银行
         if (!TextUtils.isEmpty(incomeMoney)) {//如果输入的收入金额不为空
             Tally tally = new Tally();
             tally.setTallyMoney(incomeMoney);//将收入金额存入
-            tally.setTallyDate(date);//将收入日期存入
+            tally.setTallyDate(string_time);//将收入日期存入
             tally.setTallyComment(incomeMessage);//将备注信息存入
             Classify classify = LitePal.where("classifyName  == ?", incomeType).findFirst(Classify.class);//找到满足条件的第一个数据
             classify.getTallyList().add(tally);//关联类别表
@@ -150,7 +152,7 @@ public class listener_fragment_make_bill_income implements View.OnClickListener 
             classify.save();
             assetAccount.save();
             frag_mbi.getActivity().finish();
-        }else{
+        } else {
             Toast.makeText(frag_mbi.getContext(), "请输入收入金额", Toast.LENGTH_SHORT).show();
         }
     }

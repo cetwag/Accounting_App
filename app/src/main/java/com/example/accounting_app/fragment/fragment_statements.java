@@ -26,7 +26,7 @@ import com.yatoooon.screenadaptation.ScreenAdapterTools;
  */
 public class fragment_statements extends Fragment {
 
-     public Pie_Chart piec;//图表功能类
+    public Pie_Chart piec;//图表功能类
 
     //报表碎片中的日期选择弹窗的标志
     public static final int FRAGMENT_STATEMENTS_SELECT_TIME = 2;
@@ -35,8 +35,8 @@ public class fragment_statements extends Fragment {
     public Spinner spi_income_pay;
     adapter_fragment_statements adapter;
     public com.github.mikephil.charting.charts.PieChart piechart;
-
     public LinearLayout Lin_statements_item;
+    public LinearLayout Lin_major;
 
 
     @Nullable
@@ -90,5 +90,7 @@ public class fragment_statements extends Fragment {
         adapter = new adapter_fragment_statements(this);
         piec = new Pie_Chart(this);
         Lin_statements_item = getView().findViewById(R.id.Lin_statements_item);
+        Lin_major = getView().findViewById(R.id.Lin_major);
+        Lin_major.setVisibility(View.GONE);//隐藏示例item
     }
 }

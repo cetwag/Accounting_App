@@ -10,7 +10,11 @@ import com.example.accounting_app.activity.activity_make_wish;
 import com.example.accounting_app.activity.activity_show_wish;
 import com.example.accounting_app.database.Wish;
 
+import org.litepal.LitePal;
+import org.litepal.crud.callback.FindMultiCallback;
+
 import java.util.Date;
+import java.util.List;
 
 /**
  * @Creator cetwag yuebanquan
@@ -78,25 +82,32 @@ public class listener_activity_add_wish implements View.OnClickListener {
         Date date = new Date();//获取添加心愿的时间
         String wishMonth = activity_add_wish.tv_select_month.getText().toString();//获取需要实现的月份
         if (!TextUtils.isEmpty(wishName)) {//如果心愿名称不为空
-            if (!TextUtils.isEmpty(wishMoney)) {//如果心愿金额不为空
-                if (!wishMonth.equals("选择所需的月份数▼")) {//如果心愿实现月份不为未选择状态
-                    // 先用正则表达式将月份数字提取出来
-                    String regex = "[^0123456789]";
-                    wishMonth = wishMonth.replaceAll(regex, "");//不满足的地方直接用空代替
-                    //提取完后在存入时做个类型转换
-                    Wish wish = new Wish();
-                    wish.setWishName(wishName);
-                    wish.setWishMoney(wishMoney);
-                    wish.setWishDate(date);
-                    wish.setWishNeedMonth(Integer.parseInt(wishMonth));
-                    wish.save();
-                    Intent intent_to_show_wish = new Intent(activity_add_wish, activity_show_wish.class);
-                    activity_add_wish.startActivity(intent_to_show_wish);
+            //心愿名称不为空先判断数据库中有没有
+            List<Wish> result = LitePal.where("wishName=?", wishName).find(Wish.class);
+            if (result.size() == 0) {
+                if (!TextUtils.isEmpty(wishMoney)) {//如果心愿金额不为空
+                    if (!wishMonth.equals("选择所需的月份数▼")) {//如果心愿实现月份不为未选择状态
+                        // 先用正则表达式将月份数字提取出来
+                        String regex = "[^0123456789]";
+                        wishMonth = wishMonth.replaceAll(regex, "");//不满足的地方直接用空代替
+                        //提取完后在存入时做个类型转换
+                        Wish wish = new Wish();
+                        wish.setWishName(wishName);
+                        wish.setWishMoney(wishMoney);
+                        wish.setWishDate(date);
+                        wish.setWishNeedMonth(Integer.parseInt(wishMonth));
+                        wish.save();
+                        Intent intent_to_show_wish = new Intent(activity_add_wish, activity_show_wish.class);
+                        activity_add_wish.startActivity(intent_to_show_wish);
+                    } else {
+                        Toast.makeText(activity_add_wish, "请输入需要实现的月份", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
-                    Toast.makeText(activity_add_wish, "请输入需要实现的月份", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(activity_add_wish, "请输入需要实现的金额", Toast.LENGTH_SHORT).show();
                 }
-            } else {
-                Toast.makeText(activity_add_wish, "请输入需要实现的金额", Toast.LENGTH_SHORT).show();
+            }
+            else{
+                Toast.makeText(activity_add_wish, "该心愿已存在", Toast.LENGTH_SHORT).show();
             }
         } else {
             Toast.makeText(activity_add_wish, "请输入需要实现的心愿", Toast.LENGTH_SHORT).show();

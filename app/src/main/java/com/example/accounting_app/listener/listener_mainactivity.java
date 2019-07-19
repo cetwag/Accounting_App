@@ -11,6 +11,7 @@ import com.example.accounting_app.activity.MainActivity;
 import com.example.accounting_app.activity.activity_make_wish;
 import com.example.accounting_app.activity.activity_make_asset;
 import com.example.accounting_app.activity.activity_make_bill;
+import com.example.accounting_app.fragment.fragment_home;
 import com.example.accounting_app.function.CustomViewPager;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 

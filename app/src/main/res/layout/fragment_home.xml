@@ -115,6 +115,10 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <com.mcxtzhang.swipemenulib.SwipeMenuLayout
+                    android:id="@+id/Swip_menu_home"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp">
 
                 <!--动态的第一层布局(水平)-->
                 <LinearLayout
@@ -172,6 +176,16 @@
                         android:textColor="#000000"/>
 
                 </LinearLayout>
+
+                    <Button
+                        android:id="@+id/btn_delete_home"
+                        android:layout_width="100dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/red"
+                        android:text="删除"
+                        android:textSize="18sp"/>
+
+                </com.mcxtzhang.swipemenulib.SwipeMenuLayout>
 
             </LinearLayout>
         </ScrollView>

@@ -15,6 +15,7 @@ import com.example.accounting_app.database.AssetAccount;
 import com.example.accounting_app.database.Classify;
 import com.example.accounting_app.database.Tally;
 import com.example.accounting_app.fragment.fragment_make_bill_pay;
+import com.example.accounting_app.function.type_or_format_conversion;
 
 import org.litepal.LitePal;
 import org.litepal.crud.callback.FindMultiCallback;
@@ -35,6 +36,7 @@ public class listener_fragment_make_bill_pay implements View.OnClickListener {
     fragment_make_bill_pay frag_mbp;
     Tally tally;
     String type_name = "餐饮";//用来存放点击类别的名字
+    type_or_format_conversion function = new type_or_format_conversion();
 
     /**
      * @parameter
@@ -221,12 +223,13 @@ public class listener_fragment_make_bill_pay implements View.OnClickListener {
         //edt_remarks_message_pay备注信息框,能为空
         String string_input_money_pay = frag_mbp.edt_input_money_pay.getText().toString();//获取输入的金额
         Date date = new Date();//获取记录的时间(具体到年月日时分秒)
+        String string_time = function.getTimeYMDhhmmss(date);//存入的数据进行类型转换,转换为String
         String string_remarks_message_pay = frag_mbp.edt_remarks_message_pay.getText().toString();//获取备注信息
         if (!TextUtils.isEmpty(string_input_money_pay)) {//只用判断一个输入金额是否为空就行了
             tally = new Tally();
             tally.setTallyMoney(string_input_money_pay);//将输入的金额存入数据库
             tally.setTallyComment(string_remarks_message_pay);//将输入的备注存入数据库
-            tally.setTallyDate(date);
+            tally.setTallyDate(string_time);
             Classify classify = LitePal.where("classifyName  == ?", type_name).findFirst(Classify.class);//找到满足条件的第一个数据
             classify.getTallyList().add(tally);//关联类别表
             AssetAccount assetAccount = LitePal.where

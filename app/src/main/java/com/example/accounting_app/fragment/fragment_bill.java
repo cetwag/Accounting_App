@@ -22,13 +22,16 @@ import android.widget.TextView;
 
 import com.example.accounting_app.R;
 import com.example.accounting_app.database.AssetAccount;
+import com.example.accounting_app.database.Classify;
 import com.example.accounting_app.database.Tally;
 import com.example.accounting_app.listener.listener_fragment_bill;
+import com.mcxtzhang.swipemenulib.SwipeMenuLayout;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 
 import org.litepal.LitePal;
 import org.litepal.crud.callback.FindMultiCallback;
 
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -53,13 +56,22 @@ public class fragment_bill extends Fragment {
             ckb_child, ckb_hospital, ckb_pay_other, ckb_wages, ckb_reward, ckb_interest, ckb_investment,
             ckb_unexpected, ckb_income_other, ckb_reimbursement, ckb_internal_transfer, ckb_deposit,
             ckb_collect_debts, ckb_return_credit_card, ckb_other_other;
-    public CheckBox[] checkboxes;
+    public CheckBox[] checkboxes;//复选框组
+    // 动态生成item屏幕适配相关控件
     LinearLayout Lin_bill_item;
     LinearLayout Lin_example_first_hor, Lin_example_second_ver1, Lin_example_second_ver2;
     ImageView Img_example_icon;
     TextView tv_example_name, tv_example_message, tv_example_bank, tv_example_money;
     View view_example_occupy;
-
+    //动态生成item屏幕适配相关控件结束
+    SwipeMenuLayout Swip_menu_bill;//侧滑删除布局
+    Button btn_delete_bill;//侧滑删除按钮
+    int index;//删除索引
+    LinkedList<Button> LinDelBtn;//删除按钮链表
+    LinkedList<String> LinStrTime;//删除行的对应的记账时间链表
+    LinkedList<String> LinStrName;//银行名称链表
+    LinkedList<String> LinStrMoney;//记账表里的金钱
+    LinkedList<String> LinStrClassify;//记账里的类别
 
     @Nullable
     @Override
@@ -138,7 +150,19 @@ public class fragment_bill extends Fragment {
         tv_example_bank = getView().findViewById(R.id.tv_example_bank);
         tv_example_money = getView().findViewById(R.id.tv_example_money);
         view_example_occupy = getView().findViewById(R.id.view_example_occupy);
-        Lin_example_first_hor.setVisibility(View.GONE);//隐藏示例item
+        Swip_menu_bill = getView().findViewById(R.id.Swip_menu_bill);
+        btn_delete_bill = getView().findViewById(R.id.btn_delete_bill);
+        Swip_menu_bill.setVisibility(View.GONE);//隐藏示例item
+        LinDelBtn = new LinkedList<Button>();
+        LinStrTime = new LinkedList<String>();
+        LinStrName = new LinkedList<String>();
+        LinStrMoney = new LinkedList<String>();
+        LinStrClassify = new LinkedList<String>();
+        LinDelBtn.add(0, null);
+        LinStrTime.add(0, null);
+        LinStrName.add(0, null);
+        LinStrMoney.add(0, null);
+        LinStrClassify.add(0, null);
     }
 
     /**
@@ -179,13 +203,43 @@ public class fragment_bill extends Fragment {
      */
     void create_bill_item(List<Tally> list) {
 
+        index = -1;
+
         for (int i = 0; i < list.size(); i++) {//遍历对应表里的数据
+
+            index += 1;
 
             String typeName = list.get(i).getClassify().getClassifyName();//取出类别名称
             String tallyMessage = list.get(i).getTallyComment();//取出备注信息
             String accountFrom = list.get(i).getAssetAccount().getAssetAccountBankName();//取出资产来源
             String tallyMoney = list.get(i).getTallyMoney();//取出支出或收入的金额
             int type = list.get(i).getClassify().getClassifyType();//获取是支出还是收入项
+            String tallyTime = list.get(i).getTallyDate();//获取记账的时间
+
+            //侧滑布局编写
+            ViewGroup.LayoutParams layoutParams_swipmenu = Swip_menu_bill.getLayoutParams();//找到已有的侧滑菜单布局
+            SwipeMenuLayout swipmenu = new SwipeMenuLayout(getContext());
+            swipmenu.setBackgroundResource(R.drawable.line_block);//第一层布局设置为白色带边框背景
+            LinearLayout.LayoutParams swipmenu_Params = new LinearLayout.LayoutParams(layoutParams_swipmenu.width, layoutParams_swipmenu.height);
+            swipmenu.setLayoutParams(swipmenu_Params);
+            //侧滑布局编写完毕
+
+            //删除按钮编写
+            Button delete = new Button(getContext());
+            LinDelBtn.add(index, delete);
+            ViewGroup.LayoutParams layoutParams_delete = btn_delete_bill.getLayoutParams();//找到已有的删除按钮布局
+            LinearLayout.LayoutParams delete_Params = new LinearLayout.LayoutParams(layoutParams_delete.width, layoutParams_delete.height);
+            delete.setLayoutParams(delete_Params);
+            delete.setText("删除");
+            delete.setBackgroundColor(getResources().getColor(R.color.red, null));//背景色设置为红色
+            delete.setTextSize(18);
+            delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    delete_btn_wish(v);
+                }
+            });
+            //删除按钮编写完毕
 
             //动态编写第一层布局，水平方向
             ViewGroup.LayoutParams layoutParams_first = Lin_example_first_hor.getLayoutParams();//获取已有的动态第一层布局
@@ -193,7 +247,6 @@ public class fragment_bill extends Fragment {
             //设置第一层布局的大小等属性
             LinearLayout.LayoutParams first_Params = new LinearLayout.LayoutParams(layoutParams_first.width, layoutParams_first.height);
             first_Params.setMargins(0, 25, 0, 0);//设置边距
-            first.setBackgroundResource(R.drawable.line_block);//第一层布局设置为白色带边框背景
             first.setLayoutParams(first_Params);//将上面的大小和边距属性赋给第一层布局
             //第一层布局编写完毕
 
@@ -290,6 +343,7 @@ public class fragment_bill extends Fragment {
             type_name.setText(typeName);//给类别名称设置文字内容
             type_name.setTextColor(getResources().getColor(R.color.black));
             type_name.setTextSize(17);
+            LinStrClassify.add(index, typeName);
             //类别名称编写完毕
 
             //备注信息文字显示编写
@@ -327,13 +381,14 @@ public class fragment_bill extends Fragment {
             banke_name_Params.gravity = Gravity.END;
             banke_name.setLayoutParams(banke_name_Params);//将银行名称加到它自己的布局中
             banke_name.setText(accountFrom);//给银行名称设置文字内容
-            banke_name.setTextColor(getResources().getColor(R.color.black));
+            banke_name.setTextColor(getResources().getColor(R.color.black, null));
             banke_name.setTextSize(17);
             if (type == 0) {//支出颜色为红色
-                banke_name.setTextColor(getResources().getColor(R.color.red));
+                banke_name.setTextColor(getResources().getColor(R.color.red, null));
             } else {//收入颜色为绿色
-                banke_name.setTextColor(getResources().getColor(R.color.green));
+                banke_name.setTextColor(getResources().getColor(R.color.green, null));
             }
+            LinStrName.add(index, accountFrom);
             //银行名称编写完毕
 
             //金额编写
@@ -345,14 +400,27 @@ public class fragment_bill extends Fragment {
             money.setLayoutParams(money_Params);//将金额加到它自己的布局中
             money.setText(tallyMoney);//给金额设置文字内容
             if (type == 0) {//支出颜色为红色
-                money.setTextColor(getResources().getColor(R.color.red));
+                money.setTextColor(getResources().getColor(R.color.red, null));
             } else {//收入颜色为绿色
-                money.setTextColor(getResources().getColor(R.color.green));
+                money.setTextColor(getResources().getColor(R.color.green, null));
             }
+            LinStrMoney.add(index, tallyMoney);
             //金额编写完毕
 
-            Lin_bill_item.addView(first);//将第一层降入到xml总布局中
+            //编写时间(不占空间)
+            TextView time = new TextView(getContext());
+            LinearLayout.LayoutParams time_Params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            time.setLayoutParams(time_Params);
+            time.setText(tallyTime);
+            time.setVisibility(View.GONE);//不占空间的隐藏
+            LinStrTime.add(index, tallyTime);
+            //时间编写完毕
+
+
+            Lin_bill_item.addView(swipmenu);//将第一层降入到xml总布局中
+            swipmenu.addView(first);//将第一层加入到总布局中
             first.addView(type_icon);//将类别图案加入到第一层中
+            first.addView(time);//将不占空间的时间内容加到第一层中
             first.addView(twice);//将第二层加入到第一层中
             twice.addView(type_name);//将类别名字加入到第二层布局中
             twice.addView(message);//将备注信息加入到第二层布局中
@@ -360,7 +428,51 @@ public class fragment_bill extends Fragment {
             first.addView(third);//将第三层加入到第一层中
             third.addView(banke_name);//将银行名称加入到第三层布局中
             third.addView(money);//将金额放入第三层布局中
+            swipmenu.addView(delete);
 
         }
     }
+
+    /**
+     * @parameter 第二个参数为swip布局
+     * @description 删除资产，判断第几个资产item需要被删除
+     * @Time 2019/6/30 10:13
+     */
+    void delete_btn_wish(View v) {
+        if (v == null) {
+            return;
+        }
+        for (int i = 0; i <= LinDelBtn.size() - 1; i++) {//遍历循环删除按钮list
+            if (v.equals(LinDelBtn.get(i))) {
+
+                index = i;//确定是第几个删除按钮发生事件
+
+                //先计算
+                String tallyBanName = LinStrName.get(i);//获取删除行的银行名称
+                AssetAccount assetaccount = LitePal.where("assetAccountBankName == ?", tallyBanName).findFirst(AssetAccount.class);
+                String assetMoney = assetaccount.getAssetAccountMoney();//获取对应的钱
+
+                //需要判断一下是支出还是收入
+                Classify classify = LitePal.where("classifyName == ?", LinStrClassify.get(i)).findFirst(Classify.class);
+                int result = classify.getClassifyType();
+                String nowMoney;
+                if (result == 0) {  //0表示支出
+                    nowMoney = Double.parseDouble(assetMoney) + Double.parseDouble(LinStrMoney.get(i)) + "";//删除一行后的金额计算
+                } else {  //1表示收入
+                    nowMoney = Double.parseDouble(assetMoney) - Double.parseDouble(LinStrMoney.get(i)) + "";//删除一行后的金额计算
+                }
+                ContentValues values = new ContentValues();
+                values.put("assetaccountmoney", nowMoney);
+                LitePal.updateAll(AssetAccount.class, values, "assetaccountbankname = ?", tallyBanName);
+
+                //再删除
+                LinDelBtn.remove(index);
+                Lin_bill_item.removeViewAt(index);//删除对应的资产行
+                LitePal.deleteAll(Tally.class, "tallyDate=? ", LinStrTime.get(i));//根据记账的时间寻找并删除对应行
+                LinStrTime.remove(index);
+                break;
+            }
+        }
+    }
 }
+
