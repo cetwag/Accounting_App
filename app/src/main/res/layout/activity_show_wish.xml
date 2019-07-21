@@ -16,6 +16,66 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <com.mcxtzhang.swipemenulib.SwipeMenuLayout
+                android:id="@+id/Swip_menu"
+                android:layout_width="match_parent"
+                android:layout_height="80dp">
+
+                <LinearLayout
+                    android:id="@+id/Lin_example_first"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:background="@drawable/background_wish_item2"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/Lin_example_twice"
+                        android:layout_width="180dp"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_example_wishname"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:gravity="bottom|start"
+                            android:text="测试（心愿名称）"
+                            android:textColor="#FFFFFF"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tv_example_wishmoney"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:gravity="top|start"
+                            android:text="测试金额￥9999.99"
+                            android:textColor="#FFFFFF"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv_example_wishmonth"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="40dp"
+                        android:gravity="center"
+                        android:text="期望测试月份实现"
+                        android:textColor="#FFFFFF"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+                <Button
+                    android:id="@+id/btn_delete"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/red"
+                    android:text="删除"
+                    android:textSize="18sp"/>
+            </com.mcxtzhang.swipemenulib.SwipeMenuLayout>
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

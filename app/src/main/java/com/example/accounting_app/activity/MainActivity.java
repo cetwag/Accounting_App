@@ -11,6 +11,7 @@ import android.widget.RadioButton;
 import com.example.accounting_app.R;
 import com.example.accounting_app.adapter.adapter_mainactivity;
 import com.example.accounting_app.database.AssetAccount;
+import com.example.accounting_app.database.Classify;
 import com.example.accounting_app.fragment.fragment_bill;
 import com.example.accounting_app.fragment.fragment_home;
 import com.example.accounting_app.fragment.fragment_statements;
@@ -19,9 +20,11 @@ import com.example.accounting_app.function.CustomViewPager;
 import com.example.accounting_app.listener.listener_mainactivity;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 
+import org.litepal.LitePal;
 import org.litepal.tablemanager.Connector;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -48,6 +51,13 @@ public class MainActivity extends AppCompatActivity {
     //本类的监听器和适配器类对象
     listener_mainactivity listener;
     adapter_mainactivity adapter;
+
+    //支出类别名
+    String[] typeOut = {"餐饮", "旅行", "购物", "交通", "通讯",
+            "医疗", "住房", "育儿", "文教", "娱乐", "宠物", "生活"};
+    //收入类别名
+    String[] typeIn = {"奖金", "工资", "投资收益", "报销", "借入",
+            "投资回收", "收债", "红包"};
 
 
     @Override
@@ -103,6 +113,33 @@ public class MainActivity extends AppCompatActivity {
      */
     public void initDb() {
         SQLiteDatabase db = Connector.getDatabase();
+        //初始化类别表里的信息
+        if (classifyIsNull()) {
+            for (int i = 0; i <= typeOut.length - 1; i++) {
+                Classify classify = new Classify();
+                classify.setClassifyName(typeOut[i]);
+                classify.setClassifyType(0);//支出
+                classify.save();
+            }
+            for (int i = 0; i <= typeIn.length - 1; i++) {
+                Classify classify = new Classify();
+                classify.setClassifyName(typeIn[i]);
+                classify.setClassifyType(1);//收入
+                classify.save();
+            }
+        }
+    }
+
+    /**
+     * 判断Classify表中有无数据
+     */
+    private Boolean classifyIsNull() {
+        List<Classify> classify = LitePal.findAll(Classify.class);//查询所有值，返回的使一个list集合
+        if (classify.size() == 0) {//判断，如果返回集合的大小为0就说明还没有数据
+            return true;
+        } else {//否则说明有数据
+            return false;
+        }
     }
 
     /**

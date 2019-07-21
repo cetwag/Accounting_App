@@ -1,5 +1,6 @@
 package com.example.accounting_app.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -67,4 +68,5 @@ public class activity_make_bill extends AppCompatActivity {
         adapter = new adapter_activity_make_bill(this);
         listener = new listener_activity_make_bill(this);
     }
+
 }
