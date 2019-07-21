@@ -80,6 +80,9 @@ public class fragment_home extends Fragment {
     LinkedList<String> linStrMes;//备注信息
     int index;//删除位置索引
 
+    boolean isViewInitiated; //控件是否初始化完成
+    boolean isVisibleToUser; //页面是否可见
+
 
     @Nullable
     @Override
@@ -118,6 +121,7 @@ public class fragment_home extends Fragment {
         change_state_unlog();//未登录状态
         //change_state_haveloged();//登录状态
 
+        isViewInitiated = true;//在控件初始化完了之后，设置为可见标志，用于调用setUser...函数
 
     }
 
@@ -418,8 +422,8 @@ public class fragment_home extends Fragment {
                 index = i;//确定是第几个删除按钮发生事件
                 linBtnDel.remove(index);
                 //同时删除数据库里的对应行信息(根据银行名称和备注信息删除,控制心愿名称不能重复)
-                String bn = linStrName.get(index);
-                String bm = linStrMes.get(index);
+                String bn = linStrName.get(index); //银行名称
+                String bm = linStrMes.get(index); //银行名称
                 LitePal.deleteAll(AssetAccount.class, "assetAccountBankName=? " +
                         "and assetAccountType=?", bn, bm);
                 Lin_asset_item.removeViewAt(index);//删除对应的资产行
@@ -433,15 +437,11 @@ public class fragment_home extends Fragment {
         }
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        Lin_asset_item.removeAllViews();//当暂停的时候就清空所有动态加载的资产item控件
-    }
 
     @Override
     public void onResume() {//当重新激活的时候，重新遍历数据库内容并创建资产item
         super.onResume();
+        Lin_asset_item.removeAllViews();
         /**
          * 异步取数据库中的数据,并创建资产项
          */
@@ -455,5 +455,34 @@ public class fragment_home extends Fragment {
     }
 
 
-    
+    /**
+     * @parameter
+     * @description 判断fragment是否可见的函数
+     * @Time 2019/7/20 23:17
+     */
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        this.isVisibleToUser = isVisibleToUser;
+        //调用函数，刷新页面
+        refresh();
+    }
+
+
+    void refresh() {
+        if (isVisibleToUser && isViewInitiated) {
+            Lin_asset_item.removeAllViews();//当暂停的时候就清空所有动态加载的资产item控件
+            /**
+             * 异步取数据库中的数据,并创建资产项
+             */
+            LitePal.findAllAsync(AssetAccount.class).listen(new FindMultiCallback<AssetAccount>() {
+                @Override
+                public void onFinish(List<AssetAccount> list) {
+                    list = LitePal.findAll(AssetAccount.class);//找到所有数据
+                    create_asset_item(list);
+                }
+            });
+        }
+    }
+
 }//Fragment类结束

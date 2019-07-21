@@ -1,5 +1,6 @@
 package com.example.accounting_app.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -92,5 +93,16 @@ public class activity_show_wish extends AppCompatActivity {
         listWishNmae.add(0, null);//链表第一个先放个null
     }
 
+    /**
+     * 重写返回键，使得点击返回键可以重新加载MainActivity
+     */
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        //跳转到MainActivity的intent
+        Intent intent = new Intent(activity_show_wish.this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
 
 }

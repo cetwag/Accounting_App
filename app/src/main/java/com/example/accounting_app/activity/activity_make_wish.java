@@ -1,5 +1,6 @@
 package com.example.accounting_app.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -93,6 +94,18 @@ public class activity_make_wish extends AppCompatActivity {
                 .isCyclic(true)                //是否循环滚动
                 .isDialog(true)                //是否显示为对话框样式
                 .build();
+    }
+
+    /**
+     * 重写返回键，使得点击返回键可以重新加载MainActivity
+     */
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        //跳转到MainActivity的intent
+        Intent intent = new Intent(activity_make_wish.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
 }

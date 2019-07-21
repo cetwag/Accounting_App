@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -73,6 +72,9 @@ public class fragment_bill extends Fragment {
     LinkedList<String> LinStrMoney;//记账表里的金钱
     LinkedList<String> LinStrClassify;//记账里的类别
 
+    boolean isViewInitiated; //控件是否初始化完成
+    boolean isVisibleToUser; //页面是否可见
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -100,6 +102,8 @@ public class fragment_bill extends Fragment {
 
         //监听类功能函数
         listener.listener_fb();
+
+        isViewInitiated = true;
     }
 
     /**
@@ -165,36 +169,6 @@ public class fragment_bill extends Fragment {
         LinStrClassify.add(0, null);
     }
 
-    /**
-     * @parameter
-     * @description 重写暂停事件，暂停的时候就清空内容
-     * @Time 2019/7/15 1:16
-     */
-    @Override
-    public void onPause() {
-        super.onPause();
-        Lin_bill_item.removeAllViews();//清空所有item项
-    }
-
-    /**
-     * @parameter
-     * @description 重写onResume恢复的时候重写异步取数据
-     * @Time 2019/7/15 1:18
-     */
-    @Override
-    public void onResume() {
-        super.onResume();
-        /**
-         * 异步取数据库中的数据,并创建资产项
-         */
-        LitePal.findAllAsync(Tally.class).listen(new FindMultiCallback<Tally>() {
-            @Override
-            public void onFinish(List<Tally> list) {
-                list = LitePal.findAll(Tally.class, true);//找到所有数据,其中的参数ture要注意
-                create_bill_item(list);
-            }
-        });
-    }
 
     /**
      * @parameter
@@ -474,5 +448,58 @@ public class fragment_bill extends Fragment {
             }
         }
     }
-}
+
+    /**
+     * @parameter
+     * @description 重写onResume恢复的时候重写异步取数据
+     * @Time 2019/7/15 1:18
+     */
+    @Override
+    public void onResume() {
+        Lin_bill_item.removeAllViews();//清空所有item项
+        super.onResume();
+        /**
+         * 异步取数据库中的数据,并创建资产项
+         */
+        LitePal.findAllAsync(Tally.class).listen(new FindMultiCallback<Tally>() {
+            @Override
+            public void onFinish(List<Tally> list) {
+                list = LitePal.findAll(Tally.class, true);//找到所有数据,其中的参数ture要注意
+                create_bill_item(list);
+            }
+        });
+    }
+
+    /**
+     * @parameter
+     * @description 判断fragment是否可见的函数
+     * @Time 2019/7/20 23:17
+     */
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        this.isVisibleToUser = isVisibleToUser;
+        //调用函数，刷新页面
+        refresh();
+    }
+
+
+    void refresh() {
+        if (isVisibleToUser && isViewInitiated) {
+            Lin_bill_item.removeAllViews();//清空所有item项
+            /**
+             * 异步取数据库中的数据,并创建资产项
+             */
+            LitePal.findAllAsync(Tally.class).listen(new FindMultiCallback<Tally>() {
+                @Override
+                public void onFinish(List<Tally> list) {
+                    list = LitePal.findAll(Tally.class, true);//找到所有数据,其中的参数ture要注意
+                    create_bill_item(list);
+                }
+            });
+        }
+    }
+
+
+}//类结束
 
