@@ -65,11 +65,13 @@
             android:id="@+id/pie_chart"
             android:layout_width="match_parent"
             android:layout_height="250dp"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:background="@color/light_gray"/>
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/light_gray">
 
             <LinearLayout
                 android:id="@+id/Lin_major"
