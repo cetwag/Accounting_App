@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.view.menu.MenuPopupHelper;
 import android.support.v7.widget.PopupMenu;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -236,10 +237,10 @@ public class listener_fragment_make_bill_pay implements View.OnClickListener {
                     ("assetAccountBankName  == ?", frag_mbp.tv_from_pay.getText().toString())
                     .findFirst(AssetAccount.class);
             assetAccount.getTallyList().add(tally);//关联资产表
-            getInformationpay(string_input_money_pay);
             assetAccount.save();
             classify.save();
             tally.save();
+            getInformationpay(frag_mbp.tv_from_pay.getText().toString(), string_input_money_pay);//计算
             frag_mbp.getActivity().finish();
         } else {
             Toast.makeText(frag_mbp.getContext(), "请输入支出金额", Toast.LENGTH_SHORT).show();
@@ -247,29 +248,20 @@ public class listener_fragment_make_bill_pay implements View.OnClickListener {
     }
 
     /**
-     * @parameter  参数为输入的记账金额
+     * @parameter 参数为输入的记账银行和金额
      * @description 遍历获取数据库内容
      * @Time 2019/7/16 19:39
      */
-    void getInformationpay(final String tallyMoney) {
-        /**
-         * 异步取数据库中的数据,用于计算资产
-         */
-        LitePal.findAllAsync(Tally.class).listen(new FindMultiCallback<Tally>() {
-            @Override
-            public void onFinish(List<Tally> list) {
-                list = LitePal.findAll(Tally.class, true);//找到所有数据,其中的参数ture要注意
-
-                for (int i = 0; i < list.size(); i++) {
-                    String bankNmae = list.get(i).getAssetAccount().getAssetAccountBankName();//获取资产银行名称
-                    String assetMessage = list.get(i).getAssetAccount().getAssetAccountType();//获取资产备注信息
-                    String assetMoney = list.get(i).getAssetAccount().getAssetAccountMoney();//获取对应资产中的金额
-                    String nowMoney = Double.parseDouble(assetMoney) - Double.parseDouble(tallyMoney) + "";
-                    ContentValues values = new ContentValues();
-                    values.put("assetaccountmoney", nowMoney);
-                    LitePal.updateAll(AssetAccount.class, values, "assetaccountbankname = ? and assetaccounttype = ?", bankNmae, assetMessage);
-                }
-            }
-        });
+    void getInformationpay(String tallyBank, String tallyMoney) {
+        //先根据记账银行找到对应的资产项
+        List<AssetAccount> result = LitePal.where("assetAccountBankName = ?", tallyBank)
+                .find(AssetAccount.class);
+        String assetMoney = result.get(0).getAssetAccountMoney();//获取原有的金额
+        //相减
+        String nowMoney = Double.parseDouble(assetMoney) - Double.parseDouble(tallyMoney) + "";
+        //开始更新
+        AssetAccount updateassetAccount = new AssetAccount();
+        updateassetAccount.setAssetAccountMoney(nowMoney);
+        updateassetAccount.updateAll("assetAccountBankName = ?", tallyBank);
     }
 }
