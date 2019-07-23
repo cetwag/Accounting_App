@@ -20,6 +20,7 @@ import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.example.accounting_app.R;
 import com.example.accounting_app.function.CashierInputFilter;
+import com.example.accounting_app.function.UseCashierInputFilter;
 import com.example.accounting_app.function.type_or_format_conversion;
 import com.example.accounting_app.listener.listener_fragment_make_bill_pay;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
@@ -46,6 +47,7 @@ public class fragment_make_bill_pay extends Fragment {
     public RadioGroup rdg_1, rdg_2, rdg_3;
     public RadioButton rdb_food, rdb_travel, rdb_shop, rdb_traffic, rdb_communication,
             rdb_hospital, rdb_house, rdb_child, rdb_teach, rdb_play, rdb_pet, rdb_life;
+    private UseCashierInputFilter useCashierInputFilter; //金额输入过滤器
 
     @Nullable
     @Override
@@ -77,7 +79,7 @@ public class fragment_make_bill_pay extends Fragment {
         listener.listener_Fragment_make_bill_pay();
 
         //过滤用户输入金额格式，只能输入至小数点后两位
-        cashierInputFilter();
+        useCashierInputFilter.cashierInputFilter(edt_input_money_pay);
 
     }
 
@@ -89,6 +91,7 @@ public class fragment_make_bill_pay extends Fragment {
     private void init() {
         rdb_select_time_pay = getView().findViewById(R.id.rdb_select_time_pay);
         listener = new listener_fragment_make_bill_pay(this);
+        useCashierInputFilter = new UseCashierInputFilter();    //金额输入过滤器
         t = new type_or_format_conversion();
         rdg_1 = getView().findViewById(R.id.rdg_one_pay);
         rdg_2 = getView().findViewById(R.id.rdg_two_pay);
@@ -126,14 +129,5 @@ public class fragment_make_bill_pay extends Fragment {
         }).build();
     }
 
-    /**
-     * @parameter
-     * @description 过滤用户输入金额格式，只能输入至小数点后两位
-     * @Time 2019/7/23 16:49
-     */
-    private void cashierInputFilter() {
-        InputFilter[] filters = {new CashierInputFilter()};
-        edt_input_money_pay.setFilters(filters); //设置金额输入的过滤器，保证只能输入金额类型
-    }
 
 }

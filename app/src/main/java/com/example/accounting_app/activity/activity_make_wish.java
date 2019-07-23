@@ -12,6 +12,7 @@ import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.example.accounting_app.R;
+import com.example.accounting_app.function.UseCashierInputFilter;
 import com.example.accounting_app.function.type_or_format_conversion;
 import com.example.accounting_app.listener.listener_activity_add_wish;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
@@ -34,6 +35,7 @@ public class activity_make_wish extends AppCompatActivity {
     listener_activity_add_wish listener;//监听类对象
     public Button btn_next;//下一步按钮
     public EditText edt_write_wish,edt_write_money;//心愿名称、金额输入框
+    private UseCashierInputFilter useCashierInputFilter;    //金额输入过滤器
 
 
     @Override
@@ -53,6 +55,9 @@ public class activity_make_wish extends AppCompatActivity {
         //监听功能
         listener.listener_adw();
 
+        //金额输入过滤器
+        useCashierInputFilter.cashierInputFilter(edt_write_money);
+
     }
 
     /**
@@ -67,6 +72,9 @@ public class activity_make_wish extends AppCompatActivity {
         t = new type_or_format_conversion();
         edt_write_wish = findViewById(R.id.edt_write_wish);
         edt_write_money = findViewById(R.id.edt_write_money);
+
+        //金额输入过滤器
+        useCashierInputFilter = new UseCashierInputFilter();
     }
 
     /**

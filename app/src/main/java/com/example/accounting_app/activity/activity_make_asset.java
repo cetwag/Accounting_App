@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.accounting_app.R;
 import com.example.accounting_app.adapter.adapter_activity_make_asset;
+import com.example.accounting_app.function.UseCashierInputFilter;
 import com.example.accounting_app.listener.listener_activity_make_asset;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 
@@ -40,6 +41,7 @@ public class activity_make_asset extends AppCompatActivity {
     public ImageView Imgv_country_money;
     public EditText edt_card_number;
     public Button save;
+    private UseCashierInputFilter useCashierInputFilter;    //金额输入过滤器
 
 
     @Override
@@ -59,6 +61,9 @@ public class activity_make_asset extends AppCompatActivity {
 
         //适配器功能
         adapter.adapter_Activity_make_asset();
+
+        //金额输入过滤器
+        useCashierInputFilter.cashierInputFilter(edt_input_balance);
     }
 
     /**
@@ -86,6 +91,9 @@ public class activity_make_asset extends AppCompatActivity {
         adapter = new adapter_activity_make_asset(this);
         listIBTNDel = new LinkedList<Button>();
         listIBTNDel.add(0, btn_cut_down);//先将xml里的人民币加入链表先
+
+        //金额输入过滤器
+        useCashierInputFilter = new UseCashierInputFilter();
     }
 
 }

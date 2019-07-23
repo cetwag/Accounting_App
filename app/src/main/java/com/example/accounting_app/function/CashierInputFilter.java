@@ -16,9 +16,7 @@ import java.util.regex.Pattern;
  * 注：
  *      EditText的InputType需要设置为“numberDecimal”
  * 使用时：
- *      EditText调用：
- *      InputFilter[] filters={new CashierInputFilter()};
- *      refundMoneyEdt.setFilters(filters); //设置金额输入的过滤器，保证只能输入金额类型
+ *      查看 UseCashierInputFilter.java
  */
 public class CashierInputFilter implements InputFilter {
     Pattern mPattern;
@@ -98,5 +96,4 @@ public class CashierInputFilter implements InputFilter {
 
         return dest.subSequence(dstart, dend) + sourceText;
     }
-
 }
