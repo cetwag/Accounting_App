@@ -15,7 +15,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#FF9900"
+            android:background="@color/orange"
             android:orientation="vertical">
 
             <LinearLayout
@@ -89,7 +89,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#CCCCCC"
+            android:background="@color/light_gray"
             android:orientation="vertical">
 
             <TextView
@@ -106,7 +106,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="8.5"
-            android:background="#CCCCCC"
+            android:background="@color/light_gray"
             android:scrollbars="none">
 
             <LinearLayout
@@ -115,6 +115,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <com.mcxtzhang.swipemenulib.SwipeMenuLayout
+                    android:id="@+id/Swip_menu_home"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp">
+
+                <!--动态的第一层布局(水平)-->
                 <LinearLayout
                     android:id="@+id/Lin_example_item"
                     android:layout_marginTop="8dp"
@@ -123,7 +129,9 @@
                     android:orientation="horizontal"
                     android:background="#FFFFFF">
 
+                    <!--动态的第二层布局(垂直)-->
                     <LinearLayout
+                        android:id="@+id/Lin_second_item"
                         android:layout_width="60dp"
                         android:layout_height="match_parent"
                         android:orientation="vertical">
@@ -169,6 +177,16 @@
 
                 </LinearLayout>
 
+                    <Button
+                        android:id="@+id/btn_delete_home"
+                        android:layout_width="100dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/red"
+                        android:text="删除"
+                        android:textSize="18sp"/>
+
+                </com.mcxtzhang.swipemenulib.SwipeMenuLayout>
+
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
@@ -193,10 +211,10 @@
             android:id="@+id/lv_slide_menu"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:divider="#FF9900"
+            android:divider="@color/orange"
             android:dividerHeight="2dp"
             android:scrollbars="none">
-            <!--android:divider="#FF9900"是设置分割线的颜色-->
+            <!--android:divider="@color/orange"是设置分割线的颜色-->
             <!--android:dividerHeight="5px"是设置分割线的粗细-->
         </ListView>
     </LinearLayout>

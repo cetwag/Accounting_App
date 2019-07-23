@@ -4,7 +4,7 @@ android {
     compileSdkVersion 28//指定项目的编译版本
     defaultConfig {
         applicationId "com.example.accounting_app"//项目包名
-        minSdkVersion 21 //指定项目最低兼容的Android版本
+        minSdkVersion 26 //指定项目最低兼容的Android版本
         targetSdkVersion 28 //该值表示在该版本上已经做过了充分的测试，关乎到功能能和特性
         versionCode 1 //指定项目的版本号
         versionName "1.0" //指定项目的版本名

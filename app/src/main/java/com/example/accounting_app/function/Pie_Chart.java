@@ -2,6 +2,7 @@ package com.example.accounting_app.function;
 
 import android.graphics.Color;
 
+import com.example.accounting_app.database.Tally;
 import com.example.accounting_app.fragment.fragment_statements;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
@@ -9,6 +10,8 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
+
+import org.litepal.LitePal;
 
 import java.util.ArrayList;
 
@@ -19,6 +22,18 @@ import java.util.ArrayList;
  * @Description Github上的第三方饼状图库
  */
 public class Pie_Chart {
+
+    /**
+     * 收入变量
+     */
+    Double sum_kind_pay[] = new Double[12];
+    Double sum_other_pay;       //其他
+
+    /**
+     * 支出变量
+     */
+    Double sum_kind_income[] = new Double[8];
+    Double sum_other_income;       //其他
 
     fragment_statements frag_s = new fragment_statements();
 
@@ -37,11 +52,54 @@ public class Pie_Chart {
 
     /**
      * @parameter
+     * @description 对类别的支出或收入进行求和
+     * @Time 2019/7/16 19:52
+     */
+    void facilitateDatabase() {
+        /**
+         * 支出大类计算
+         */
+        sum_kind_pay[0] = LitePal.where("classify_id == ?", "1").sum(Tally.class, "tallyMoney", double.class);
+        sum_kind_pay[1] = LitePal.where("classify_id == ?", "2").sum(Tally.class, "tallyMoney", double.class);
+        sum_kind_pay[2] = LitePal.where("classify_id == ?", "3").sum(Tally.class, "tallyMoney", double.class);
+        sum_kind_pay[3] = LitePal.where("classify_id == ?", "4").sum(Tally.class, "tallyMoney", double.class);
+        sum_kind_pay[4] = LitePal.where("classify_id == ?", "5").sum(Tally.class, "tallyMoney", double.class);
+        sum_kind_pay[5] = LitePal.where("classify_id == ?", "6").sum(Tally.class, "tallyMoney", double.class);
+        sum_kind_pay[6] = LitePal.where("classify_id == ?", "7").sum(Tally.class, "tallyMoney", double.class);
+        sum_kind_pay[7] = LitePal.where("classify_id == ?", "8").sum(Tally.class, "tallyMoney", double.class);
+        sum_kind_pay[8] = LitePal.where("classify_id == ?", "9").sum(Tally.class, "tallyMoney", double.class);
+        sum_kind_pay[9] = LitePal.where("classify_id == ?", "10").sum(Tally.class, "tallyMoney", double.class);
+        sum_kind_pay[10] = LitePal.where("classify_id == ?", "11").sum(Tally.class, "tallyMoney", double.class);
+        sum_kind_pay[11] = LitePal.where("classify_id == ?", "12").sum(Tally.class, "tallyMoney", double.class);
+        sum_other_pay = sum_kind_pay[3] + sum_kind_pay[4] + sum_kind_pay[5] + sum_kind_pay[6] + sum_kind_pay[7] +
+                sum_kind_pay[8] + sum_kind_pay[9] + sum_kind_pay[10] + sum_kind_pay[11];
+
+        /**
+         * 收入大类计算
+         */
+        sum_kind_income[0] = LitePal.where("classify_id == ?", "13").sum(Tally.class, "tallyMoney", double.class);
+        sum_kind_income[1] = LitePal.where("classify_id == ?", "14").sum(Tally.class, "tallyMoney", double.class);
+        sum_kind_income[2] = LitePal.where("classify_id == ?", "15").sum(Tally.class, "tallyMoney", double.class);
+        sum_kind_income[3] = LitePal.where("classify_id == ?", "16").sum(Tally.class, "tallyMoney", double.class);
+        sum_kind_income[4] = LitePal.where("classify_id == ?", "17").sum(Tally.class, "tallyMoney", double.class);
+        sum_kind_income[5] = LitePal.where("classify_id == ?", "18").sum(Tally.class, "tallyMoney", double.class);
+        sum_kind_income[6] = LitePal.where("classify_id == ?", "19").sum(Tally.class, "tallyMoney", double.class);
+        sum_kind_income[7] = LitePal.where("classify_id == ?", "20").sum(Tally.class, "tallyMoney", double.class);
+        sum_other_income = sum_kind_income[3]
+                + sum_kind_income[4] + sum_kind_income[5] + sum_kind_income[6]
+                + sum_kind_income[7];
+    }
+
+    /**
+     * @parameter
      * @description //饼状图加入数据函数,在支出情况下的图表
      * @Time 2019/7/5 1:01
      */
 
     public void pie_chart_data_pay() {
+
+        facilitateDatabase();//首先计算数据
+
         frag_s.piechart.setUsePercentValues(true);
         frag_s.piechart.getDescription().setEnabled(false);
         frag_s.piechart.setExtraOffsets(5, 10, 5, 5);
@@ -69,11 +127,10 @@ public class Pie_Chart {
 
         //显示的数据源
         ArrayList<PieEntry> entries = new ArrayList<PieEntry>();
-        entries.add(new PieEntry(1, "餐饮"));
-        entries.add(new PieEntry(2, "旅行"));
-        entries.add(new PieEntry(1, "购物"));
-        entries.add(new PieEntry(1, "其他"));
-        entries.add(new PieEntry(2, "其他"));
+        entries.add(new PieEntry(sum_kind_pay[0].intValue(), "餐饮"));
+        entries.add(new PieEntry(sum_kind_pay[1].intValue(), "旅行"));
+        entries.add(new PieEntry(sum_kind_pay[2].intValue(), "购物"));
+        entries.add(new PieEntry(sum_other_pay.intValue(), "其他"));
 
         //设置数据
         setData_pay(entries);
@@ -126,14 +183,9 @@ public class Pie_Chart {
 
     /**
      * @parameter
-<<<<<<< Updated upstream
-     * @description //饼状图加入数据函数,在支出情况下的图表
-=======
      * @description //饼状图加入数据函数,在收入情况下的图表
->>>>>>> Stashed changes
      * @Time 2019/7/5 1:01
      */
-
     public void pie_chart_data_income() {
         frag_s.piechart.setUsePercentValues(true);
         frag_s.piechart.getDescription().setEnabled(false);
@@ -162,10 +214,10 @@ public class Pie_Chart {
 
         //显示的数据源
         ArrayList<PieEntry> entries = new ArrayList<PieEntry>();
-        entries.add(new PieEntry(1, "餐饮"));
-        entries.add(new PieEntry(2, "旅行"));
-        entries.add(new PieEntry(3, "购物"));
-        entries.add(new PieEntry(4, "其他"));
+        entries.add(new PieEntry(sum_kind_income[0].intValue(), "奖金"));
+        entries.add(new PieEntry(sum_kind_income[1].intValue(), "工资"));
+        entries.add(new PieEntry(sum_kind_income[2].intValue(), "投资收益"));
+        entries.add(new PieEntry(sum_other_income.intValue(), "其他"));
 
         //设置数据
         setData_income(entries);

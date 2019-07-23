@@ -1,6 +1,7 @@
 package com.example.accounting_app.listener;
 
 import android.view.View;
+import android.widget.AdapterView;
 
 import com.example.accounting_app.R;
 import com.example.accounting_app.fragment.fragment_statements;
@@ -54,5 +55,38 @@ public class listener_fragment_statements implements View.OnClickListener {
                 }
                 break;
         }
+    }
+
+    /**
+     * @parameter
+     * @description Spinner的收入或者支出的点击事件
+     * @Time 2019/7/17 1:06
+     */
+    public void select_pay_income() {
+        frag_s.spi_income_pay.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            /**
+             *
+             * @param parent parent接收的是被选择的数据项所属的 Spinner对象，
+             * @param view view参数接收的是显示被选择的数据项的TextView对象
+             * @param position position接收的是被选择的数据项在适配器中的位置
+             * @param id id被选择的数据项的行号
+             */
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    case 0:
+                        frag_s.piec.pie_chart_data_pay();//覆盖绘制
+                        break;
+                    case 1:
+                        frag_s.piec.pie_chart_data_income();//覆盖绘制
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 }

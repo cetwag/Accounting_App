@@ -19,7 +19,7 @@ public class listener_activity_make_bill implements View.OnClickListener {
 
     /**
      * @parameter
-     * @description 编写两个有参和午餐构造函数用来获取对应类的控件
+     * @description 编写两个有参和无参构造函数用来获取对应类的控件
      * @Time 2019/6/29 10:07
      */
     public listener_activity_make_bill() {
