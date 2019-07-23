@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<litepal>
+    <!--
+    	定义应用程序的数据库名称。
+        默认情况下，每个数据库名称都应该以.db结尾。
+        如果您的数据库没有以.db结尾，LitePal会自动为您添加后缀。
+    	例如：<dbname value="demo" />
+    -->
+    <dbname value="AccountingDataBase" />
+
+    <!--
+    	定义数据库的版本。每次你想要升级数据库，版本标记会有所帮助。
+        修改您在mapping标记中定义的模型，然后使版本值加1，升级数据库将自动处理，无需担心。
+        例如:  <version value="1" />
+    -->
+    <version value="1" />
+
+    <!--
+    	使用映射标签在列表中定义模型，LitePal会为每个映射类创建表。
+    	支持字段在模型中定义的将映射到列中。
+    	例如:
+    	<list>
+    		<mapping class="com.test.model.Reader" />
+    		<mapping class="com.test.model.Magazine" />
+    	</list>
+    -->
+    <list>
+        <mapping class="com.example.accounting_app.database.AssetAccount"/>
+        <mapping class="com.example.accounting_app.database.Classify"/>
+        <mapping class="com.example.accounting_app.database.Currency"/>
+        <mapping class="com.example.accounting_app.database.Synchronize"/>
+        <mapping class="com.example.accounting_app.database.Tally"/>
+        <mapping class="com.example.accounting_app.database.User"/>
+        <mapping class="com.example.accounting_app.database.Wish"/>
+    </list>
+
+    <!--
+       定义.db文件的位置。“internal”是指.db文件是否会存储在数据库文件夹的内部。
+       “external”表示。db文件将存储在指向主外部存储设备上的目录的路径
+       应用程序可以放置每个人都拥有的持久文件可以访问。
+       “internal”将作为默认值。
+        例如:
+        <storage value="external" />
+    -->
+
+</litepal>

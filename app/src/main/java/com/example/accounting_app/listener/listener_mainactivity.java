@@ -3,8 +3,6 @@ package com.example.accounting_app.listener;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 
@@ -13,6 +11,7 @@ import com.example.accounting_app.activity.MainActivity;
 import com.example.accounting_app.activity.activity_make_wish;
 import com.example.accounting_app.activity.activity_make_asset;
 import com.example.accounting_app.activity.activity_make_bill;
+import com.example.accounting_app.fragment.fragment_home;
 import com.example.accounting_app.function.CustomViewPager;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 
@@ -25,7 +24,7 @@ import com.yatoooon.screenadaptation.ScreenAdapterTools;
 public class listener_mainactivity implements View.OnClickListener {
 
     MainActivity mainactivity;//声明对应类的对象,通过构造函数传参传入赋值，否则无法获取对应的控件
-    float beforeX;
+    AlertDialog.Builder dialog;//弹窗对象
 
 
     /**
@@ -59,27 +58,19 @@ public class listener_mainactivity implements View.OnClickListener {
                 switch (i) {
                     case 0:
                         mainactivity.rdb_home.setChecked(true);
-                        Log.d("test", mainactivity.viewpager.getCurrentItem()+"");
                         mainactivity.viewpager.setAllowedSwipeDirection(CustomViewPager.SwipeDirection.right);
-                        Log.d("test1", "ok");
                         break;
                     case 1:
                         mainactivity.rdb_bill.setChecked(true);
-                        Log.d("test", mainactivity.viewpager.getCurrentItem()+"");
                         mainactivity.viewpager.setAllowedSwipeDirection(CustomViewPager.SwipeDirection.all);
-                        Log.d("test1", "ok");
                         break;
                     case 2:
                         mainactivity.rdb_wish.setChecked(true);
-                        Log.d("test", mainactivity.viewpager.getCurrentItem()+"");
                         mainactivity.viewpager.setAllowedSwipeDirection(CustomViewPager.SwipeDirection.all);
-                        Log.d("test1", "ok");
                         break;
                     case 3:
                         mainactivity.rdb_statements.setChecked(true);
-                        Log.d("test", mainactivity.viewpager.getCurrentItem()+"");
                         mainactivity.viewpager.setAllowedSwipeDirection(CustomViewPager.SwipeDirection.all);
-                        Log.d("test1", "ok");
                         break;
                 }
             }
@@ -102,7 +93,6 @@ public class listener_mainactivity implements View.OnClickListener {
         mainactivity.rdb_wish.setOnClickListener(this);
         mainactivity.rdb_statements.setOnClickListener(this);
         mainactivity.rdb_add.setOnClickListener(this);
-        viewpager_limit();
     }
 
     /**
@@ -127,7 +117,7 @@ public class listener_mainactivity implements View.OnClickListener {
                 break;
             case R.id.rdb_add:
                 //编写出现弹窗
-                AlertDialog.Builder dialog = new AlertDialog.Builder(mainactivity);//先通过AlertDialog.Builder创建一个AlertDialog实例
+                dialog = new AlertDialog.Builder(mainactivity);//先通过AlertDialog.Builder创建一个AlertDialog实例
                 View view = View.inflate(mainactivity, R.layout.dialog_add_one, null);
                 ScreenAdapterTools.getInstance().loadView(view);
                 dialog.setView(view);
@@ -162,14 +152,5 @@ public class listener_mainactivity implements View.OnClickListener {
                 });
                 break;
         }
-    }
-
-    /**
-     *@parameter
-     *@description 限定viewpager的滑动是否禁止
-     *@Time 2019/6/30 20:25
-     */
-    void viewpager_limit(){
-
     }
 }

@@ -13,12 +13,11 @@ import android.widget.TextView;
 
 import com.example.accounting_app.R;
 import com.example.accounting_app.adapter.adapter_activity_make_asset;
+import com.example.accounting_app.function.UseCashierInputFilter;
 import com.example.accounting_app.listener.listener_activity_make_asset;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 
-import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Map;
 
 /**
  * @Creator cetway yuebanquan
@@ -40,6 +39,9 @@ public class activity_make_asset extends AppCompatActivity {
     public Button btn_cut_down;
     public EditText edt_input_balance;
     public ImageView Imgv_country_money;
+    public EditText edt_card_number;
+    public Button save;
+    private UseCashierInputFilter useCashierInputFilter;    //金额输入过滤器
 
 
     @Override
@@ -59,6 +61,9 @@ public class activity_make_asset extends AppCompatActivity {
 
         //适配器功能
         adapter.adapter_Activity_make_asset();
+
+        //金额输入过滤器
+        useCashierInputFilter.cashierInputFilter(edt_input_balance);
     }
 
     /**
@@ -80,9 +85,15 @@ public class activity_make_asset extends AppCompatActivity {
         edt_input_balance = findViewById(R.id.edt_input_balance);
         Imgv_country_money = findViewById(R.id.Imgv_country_money);
         Lin_outer = findViewById(R.id.Lin_outer);
+        edt_card_number = findViewById(R.id.edt_card_number);
+        save = findViewById(R.id.save);
         listener = new listener_activity_make_asset(this);
         adapter = new adapter_activity_make_asset(this);
         listIBTNDel = new LinkedList<Button>();
         listIBTNDel.add(0, btn_cut_down);//先将xml里的人民币加入链表先
+
+        //金额输入过滤器
+        useCashierInputFilter = new UseCashierInputFilter();
     }
+
 }

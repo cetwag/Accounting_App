@@ -50,6 +50,7 @@ public class fragment_wish extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         init();
+
         listener.listener_fw();//该类的监听调用
 
     }
