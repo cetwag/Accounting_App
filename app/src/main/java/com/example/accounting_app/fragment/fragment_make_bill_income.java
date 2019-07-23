@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.example.accounting_app.R;
+import com.example.accounting_app.function.CashierInputFilter;
 import com.example.accounting_app.function.type_or_format_conversion;
 import com.example.accounting_app.listener.listener_fragment_make_bill_income;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
@@ -74,6 +76,9 @@ public class fragment_make_bill_income extends Fragment {
 
         //监听类
         listener.listener_fragment_mbi();
+
+        //过滤用户输入金额格式，只能输入至小数点后两位
+        cashierInputFilter();
     }
 
     /**
@@ -81,7 +86,7 @@ public class fragment_make_bill_income extends Fragment {
      * @description 控件初始化
      * @Time 2019/6/29 11:10
      */
-    void init() {
+    private void init() {
         rdb_select_time_income = getView().findViewById(R.id.rdb_select_time_income);
         listener = new listener_fragment_make_bill_income(this);
         t = new type_or_format_conversion();
@@ -107,12 +112,22 @@ public class fragment_make_bill_income extends Fragment {
      * @description 初始化时间选择器
      * @Time 2019/6/29 11:10
      */
-    void initTimePick() {
+    private void initTimePick() {
         pvTime = new TimePickerBuilder(getContext(), new OnTimeSelectListener() {
             @Override
             public void onTimeSelect(Date date, View v) {
                 rdb_select_time_income.setText(t.getTimeYMD(date));
             }
         }).build();
+    }
+
+    /**
+     * @parameter
+     * @description 过滤用户输入金额格式，只能输入至小数点后两位
+     * @Time 2019/7/23 17:21
+     */
+    private void cashierInputFilter() {
+        InputFilter[] filters = {new CashierInputFilter()};
+        edt_input_money_income.setFilters(filters); //设置金额输入的过滤器，保证只能输入金额类型
     }
 }

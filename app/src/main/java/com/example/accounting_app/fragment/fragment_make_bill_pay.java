@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.example.accounting_app.R;
+import com.example.accounting_app.function.CashierInputFilter;
 import com.example.accounting_app.function.type_or_format_conversion;
 import com.example.accounting_app.listener.listener_fragment_make_bill_pay;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
@@ -27,8 +29,9 @@ import java.util.Date;
 /**
  * @Creator cetwag yuebanquan
  * @Version V2.0.0
- * @Time 2019.6.29
+ * @Time 2019.6.29  2019.7.23
  * @Description 记一笔中的支出碎片
+ * 此处用于管控记一笔的支出页面业务逻辑
  */
 public class fragment_make_bill_pay extends Fragment {
 
@@ -38,7 +41,7 @@ public class fragment_make_bill_pay extends Fragment {
     type_or_format_conversion t;//功能类对象
     public Button btn_determine_pay;//最终确认按钮
     public ImageButton Imgbtn_select_from_pay;
-    public EditText edt_input_money_pay,edt_remarks_message_pay;
+    public EditText edt_input_money_pay, edt_remarks_message_pay;
     public TextView tv_from_pay;
     public RadioGroup rdg_1, rdg_2, rdg_3;
     public RadioButton rdb_food, rdb_travel, rdb_shop, rdb_traffic, rdb_communication,
@@ -73,6 +76,9 @@ public class fragment_make_bill_pay extends Fragment {
         //监听类函数功能
         listener.listener_Fragment_make_bill_pay();
 
+        //过滤用户输入金额格式，只能输入至小数点后两位
+        cashierInputFilter();
+
     }
 
     /**
@@ -80,7 +86,7 @@ public class fragment_make_bill_pay extends Fragment {
      * @description 初始化控件
      * @Time 2019/6/29 11:23
      */
-    void init() {
+    private void init() {
         rdb_select_time_pay = getView().findViewById(R.id.rdb_select_time_pay);
         listener = new listener_fragment_make_bill_pay(this);
         t = new type_or_format_conversion();
@@ -111,13 +117,23 @@ public class fragment_make_bill_pay extends Fragment {
      * @description 初始化时间选择器
      * @Time 2019/6/29 11:10
      */
-    void initTimePick() {
+    public void initTimePick() {
         pvTime = new TimePickerBuilder(getContext(), new OnTimeSelectListener() {
             @Override
             public void onTimeSelect(Date date, View v) {
                 rdb_select_time_pay.setText(t.getTimeYMD(date));
             }
         }).build();
+    }
+
+    /**
+     * @parameter
+     * @description 过滤用户输入金额格式，只能输入至小数点后两位
+     * @Time 2019/7/23 16:49
+     */
+    private void cashierInputFilter() {
+        InputFilter[] filters = {new CashierInputFilter()};
+        edt_input_money_pay.setFilters(filters); //设置金额输入的过滤器，保证只能输入金额类型
     }
 
 }
