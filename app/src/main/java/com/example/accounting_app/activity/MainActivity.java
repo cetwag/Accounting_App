@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
 
         initDb();   //数据库初始化,建表
 
-//        testDb();   //测试数据库
+//        testDb();   //测试数据库功能
     }
 
     /**
@@ -113,8 +113,8 @@ public class MainActivity extends AppCompatActivity {
      */
     public void initDb() {
         SQLiteDatabase db = Connector.getDatabase();
-        //初始化类别表里的信息
-        if (classifyIsNull()) {
+        //初始化类别表(classify 表)里的信息
+        if (classifyIsNull()) {     //若classify表内数据为空,初始化表
             for (int i = 0; i <= typeOut.length - 1; i++) {
                 Classify classify = new Classify();
                 classify.setClassifyName(typeOut[i]);
@@ -130,8 +130,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
     /**
-     * 判断Classify表中有无数据
+     * @parameter
+     * @description 判断Classify表中有无数据
+     *
+     *              待优化:
+     *              无需findAll,只需findFirst,查询第一行是否为空即可
+     * @Time 2019/7/12 16:02
      */
     private Boolean classifyIsNull() {
         List<Classify> classify = LitePal.findAll(Classify.class);//查询所有值，返回的使一个list集合
@@ -142,17 +148,18 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * @parameter
-     * @description 测试数据库
-     * @Time 2019/7/12 20:35
-     */
+
+//    /**
+//     * @parameter
+//     * @description 测试数据库功能
+//     * @Time 2019/7/12 20:35
+//     */
 //    public void testDb() {
 //        AssetAccount assetAccount = new AssetAccount();
 //        assetAccount.setAssetAccountType(0);
 //        assetAccount.setAssetAccountBankName("中国银行");
 //        assetAccount.setAssetAccountCardNum("6222621310030964817");
-////        assetAccount.setAssetAccountMoney("10.0");
+//        assetAccount.setAssetAccountMoney("10.0");
 //        assetAccount.save();
 //    }
 
