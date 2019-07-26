@@ -11,7 +11,7 @@
     <string name="fragment_home_tv_location">待定位..</string>
     <string name="fragment_home_tv_net_assets">净资产￥0.00</string>
     <string name="fragment_home_tv_all_assets">总资产￥0.00</string>
-    <string name="fragment_home_tv_negative_assets">负资产￥0.00</string>
+    <string name="fragment_home_tv_negative_assets">总负债￥0.00</string>
     <string name="fragment_home_tv_account_assets">账户资产</string>
 
     <!--fragment_bill布局里-->

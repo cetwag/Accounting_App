@@ -30,6 +30,7 @@ import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import org.litepal.LitePal;
 import org.litepal.crud.callback.FindMultiCallback;
 
+import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -37,11 +38,12 @@ import java.util.List;
 /**
  * @Creator cetwag, yuebanquan
  * @Version V2.0.0
- * @Time 2019.6.27
+ * @Time 2019.6.27  2019.7.24
  * @Description 首页模块碎片
  */
 
 public class fragment_home extends Fragment {
+    private static final String TAG = "fragment_home";
 
     public Button btn_slide;
     public DrawerLayout drawerlayout;
@@ -69,11 +71,14 @@ public class fragment_home extends Fragment {
     LinearLayout Lin_example_item;//示例控件的最外围布局,找到后用汉语隐藏示例item
 
     TextView tv_net_assets;//净资产
-    TextView tv_all_assets;//总资产
+    TextView tv_total_assets;//总资产
 
-    //首页的总资产，净资产和负资产的计算变量，放在这里用个static方便调用计算
-    double own_asset_number;//净资产初始化
-    double all_asset_number;//总资产初始化
+    //储存 净资产
+    private static BigDecimal netAssets;
+    //储存 总资产
+    private static BigDecimal totalAssets;
+    //储存 总负债(取绝对值)
+    private static BigDecimal grossLiability;
 
     LinkedList<Button> linBtnDel;//删除按钮链表
     LinkedList<String> linStrName;//银行名称
@@ -148,7 +153,7 @@ public class fragment_home extends Fragment {
         tv_example_balance = getView().findViewById(R.id.tv_example_balance);
         tv_example_message = getView().findViewById(R.id.tv_example_message);
         tv_net_assets = getView().findViewById(R.id.tv_net_assets);
-        tv_all_assets = getView().findViewById(R.id.tv_all_assets);
+        tv_total_assets = getView().findViewById(R.id.tv_all_assets);
         Lin_second_item = getView().findViewById(R.id.Lin_second_item);
         Swip_menu_home = getView().findViewById(R.id.Swip_menu_home);
         btn_delete_home = getView().findViewById(R.id.btn_delete_home);
@@ -258,154 +263,188 @@ public class fragment_home extends Fragment {
      * @description 遍历数据库创建资产列表项
      * @Time 2019/7/12 22:29
      */
-    void create_asset_item(List<AssetAccount> list) {
+    void create_asset_item(List<AssetAccount> assetAccountList) {
+        index = -1; //删除索引初始化
 
-        own_asset_number = 0;//净资产初始化
-        all_asset_number = 0;//总资产初始化
-        index = -1;//删除索引初始化
+        //注：new BigDecimal的时候需要传入String
+        netAssets = new BigDecimal("0.00");          //净资产初始化
+        totalAssets = new BigDecimal("0.00");        //总资产初始化
+        grossLiability = new BigDecimal("0.00");    //总负债初始化
 
-        for (int i = 0; i < list.size(); i++) {//遍历对应表里的数据
-
+        for (int i = 0; i < assetAccountList.size(); i++) { //遍历对应表里的数据
             index += 1;//每创建一个资产item项，索引自动加1
-            Log.d("15999", index + "");
+            Log.d(TAG, "create_asset_item: index = " + index);
 
-            String BankName = list.get(i).getAssetAccountBankName();//取出银行名称
-            String Balance = list.get(i).getAssetAccountMoney();//取出余额
-            String Message = list.get(i).getAssetAccountType();//取出备注信息
+            //从数据库中取数据
+            String str_bankName = assetAccountList.get(i).getAssetAccountBankName();    //取出银行名称
+            String str_message = assetAccountList.get(i).getAssetAccountType();         //取出备注信息
+            BigDecimal bd_money = new BigDecimal(assetAccountList.get(i).getAssetAccountMoney());//取出余额
+            Log.d(TAG, "create_asset_item: bd_money = " + bd_money);
 
-            //先对净资产和总资产的数字进行更改显示
-            own_asset_number += Double.parseDouble(Balance);
-            all_asset_number += Double.parseDouble(Balance);
+            //计算净资产、总资产、总负债
+            calculateMoney(bd_money);
 
-            //侧滑删除编写所需布局
-            ViewGroup.LayoutParams layoutParams_swipmenu = Swip_menu_home.getLayoutParams();//找到已有的侧滑菜单布局
-            SwipeMenuLayout swipmenu = new SwipeMenuLayout(getContext());
-            swipmenu.setBackgroundResource(R.drawable.line_block);//第一层布局设置为白色带边框背景
-            LinearLayout.LayoutParams swipmenu_Params = new LinearLayout.LayoutParams(layoutParams_swipmenu.width, layoutParams_swipmenu.height);
-            swipmenu.setLayoutParams(swipmenu_Params);
-            //侧滑删除编写完毕
-
-            //动态编写第一层布局，水平方向
-            ViewGroup.LayoutParams layoutParams_first = Lin_example_item.getLayoutParams();//获取已有的动态第一层布局
-            LinearLayout first = new LinearLayout(getContext());//动态创建第一层的布局
-            //设置第一层布局的大小等属性
-            LinearLayout.LayoutParams first_Params = new LinearLayout.LayoutParams(layoutParams_first.width, layoutParams_first.height);
-            first_Params.setMargins(0, 16, 0, 0);//设置边距
-            first.setLayoutParams(first_Params);//将上面的大小和边距属性赋给第一层布局
-            //第一层布局编写完毕
-
-            //第二层布局，垂直的放置银行图案和银行文字的布局
-            ViewGroup.LayoutParams layoutParams_second = Lin_second_item.getLayoutParams();//获取已有的动态第一层布局
-            LinearLayout twice = new LinearLayout(getContext());//动态创建第二层的布局
-            //设置第二层布局的大小等属性
-            LinearLayout.LayoutParams twice_Params = new LinearLayout.LayoutParams(layoutParams_second.width, layoutParams_second.height);
-            twice.setOrientation(LinearLayout.VERTICAL);//设置为垂直方向布局
-            twice.setLayoutParams(twice_Params);//将上面的大小和边距属性赋给第二层布局
-            //第二层布局编写完毕
-
-            //银行图案编写
-            ImageButton bank = new ImageButton(getContext());
-            ViewGroup.LayoutParams layoutParams_bank = Img_example_bank.getLayoutParams();//获取已有的银行图案布局
-            LinearLayout.LayoutParams bank_Params = new LinearLayout.LayoutParams(layoutParams_bank.width, layoutParams_bank.height);
-            bank_Params.gravity = Gravity.CENTER;
-            bank.setLayoutParams(bank_Params);//将银行图案加到它自己的布局中
-            switch (BankName) {
-                case "交通银行":
-                    bank.setBackgroundResource(R.drawable.bank_bcm);//给银行图案引用资源图片
-                    break;
-                case "工商银行":
-                    bank.setBackgroundResource(R.drawable.bank_icbc);//给ImageView加上图片资源
-                    break;
-                case "招商银行":
-                    bank.setBackgroundResource(R.drawable.bank_cmb);//给ImageView加上图片资源
-                    break;
-                case "中国银行":
-                    bank.setBackgroundResource(R.drawable.bank_boc);//给ImageView加上图片资源
-                    break;
-                case "农业银行":
-                    bank.setBackgroundResource(R.drawable.bank_abc);//给ImageView加上图片资源
-                    break;
-                case "浦发银行":
-                    bank.setBackgroundResource(R.drawable.bank_spdb);//给ImageView加上图片资源
-                    break;
-                case "建设银行":
-                    bank.setBackgroundResource(R.drawable.bank_ccb);//给ImageView加上图片资源
-                    break;
-                case "微信":
-                    bank.setBackgroundResource(R.drawable.bank_wechat);//给ImageView加上图片资源
-                    break;
-                case "支付宝":
-                    bank.setBackgroundResource(R.drawable.bank_alipay);//给ImageView加上图片资源
-                    break;
-            }
-            //银行按钮编写完毕
-
-            //银行名称编写
-            TextView bank_name = new TextView(getContext());
-            ViewGroup.LayoutParams layoutParams_bank_name = tv_example_bank_name.getLayoutParams();//获取已有的银行名称布局
-            LinearLayout.LayoutParams bank_name_Params = new LinearLayout.LayoutParams(layoutParams_bank_name.width, layoutParams_bank_name.height);
-            bank_name_Params.gravity = Gravity.CENTER;
-            bank_name.setLayoutParams(bank_name_Params);//将银行名称加到它自己的布局中
-            bank_name.setText(BankName);//给银行名称设置文字内容
-            bank_name.setTextColor(getResources().getColor(R.color.black, null));
-            bank_name.setTypeface(Typeface.SANS_SERIF, Typeface.BOLD);//字体加粗
-            bank_name.setTextSize(11);
-            linStrName.add(index, BankName);
-            //银行名称编写完毕
-
-            //余额文字显示编写
-            TextView balance = new TextView(getContext());
-            ViewGroup.LayoutParams layoutParams_balance = tv_example_balance.getLayoutParams();//获取已有的余额名称布局
-            LinearLayout.LayoutParams balance_Params = new LinearLayout.LayoutParams(layoutParams_balance.width, layoutParams_balance.height);
-            balance_Params.gravity = Gravity.CENTER;
-            balance.setLayoutParams(balance_Params);//将余额加到它自己的布局中
-            balance.setText("￥" + Balance);//给余额设置文字内容
-            balance.setTextColor(getResources().getColor(R.color.black, null));
-            balance.setTypeface(Typeface.SANS_SERIF, Typeface.BOLD);//字体加粗
-            balance.setTextSize(20);
-            //余额编写完毕
-
-            //备注信息编写
-            TextView message = new TextView(getContext());
-            ViewGroup.LayoutParams layoutParams_message = tv_example_balance.getLayoutParams();//获取已有的余额名称布局
-            LinearLayout.LayoutParams message_Params = new LinearLayout.LayoutParams(layoutParams_message.width, layoutParams_message.height);
-            message_Params.gravity = Gravity.CENTER;
-            message.setLayoutParams(message_Params);//将余额加到它自己的布局中
-            message.setText(Message);//给余额设置文字内容
-            message.setTextColor(getResources().getColor(R.color.black, null));
-            message.setTextSize(15);
-            linStrMes.add(index, Message);
-            //备注信息编写完毕
-
-            //侧滑按钮编写
-            Button delete = new Button(getContext());
-            linBtnDel.add(index, delete);
-            ViewGroup.LayoutParams layoutParams_delete = btn_delete_home.getLayoutParams();//找到已有的删除按钮布局
-            LinearLayout.LayoutParams delete_Params = new LinearLayout.LayoutParams(layoutParams_delete.width, layoutParams_delete.height);
-            delete.setLayoutParams(delete_Params);
-            delete.setText("删除");
-            delete.setBackgroundColor(getResources().getColor(R.color.red, null));//背景色设置为红色
-            delete.setTextSize(18);
-            delete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    delete_btn_wish(v);
-                }
-            });
-            //删除按钮编写完毕
-
-            twice.addView(bank);//将银行图案加到第二层布局中
-            twice.addView(bank_name);//将银行名称加入到第二层布局中
-            first.addView(twice);//将第二层加入到第一层中
-            first.addView(balance);//将余额加入到第一层中
-            first.addView(message);//将备注信息加入到第一层中
-            swipmenu.addView(first);//将第一层加入到侧滑层中
-            swipmenu.addView(delete);//将删除按钮加入到侧滑层
-            Lin_asset_item.addView(swipmenu);//将侧滑层加入总布局中
+            //动态加载布局
+            dynamicLoadingLayout(str_bankName, str_message, bd_money);
         }
         //循环完毕后，将计算出的最终的金额结果显示出来
-        tv_net_assets.setText("净资产￥" + own_asset_number);
-        tv_all_assets.setText("总资产￥" + all_asset_number);
+        tv_net_assets.setText("净资产￥" + netAssets);
+        tv_total_assets.setText("总资产￥" + totalAssets);
+    }
+
+    /**
+     * @parameter bd_money  余额
+     * @description 计算净资产、总资产、总负债
+     * @Time 2019/7/24 10:13
+     */
+    public void calculateMoney(BigDecimal bd_money) {
+        if (bd_money.compareTo(BigDecimal.ZERO) == -1) {   //若余额为负，取绝对值计入总负债中
+            //总负债 = 之前的总负债 + |余额|   （总负债中存绝对值）
+            grossLiability = grossLiability.add(bd_money.abs());
+            Log.d(TAG, "create_asset_item: grossLiability = " + grossLiability);
+        } else {    //若余额非负，计入总资产中
+            //总资产 = 之前资产 + 余额
+            totalAssets = totalAssets.add(bd_money);
+            Log.d(TAG, "create_asset_item: totalAssets = " + totalAssets);
+        }
+        //净资产 = 总资产 - 总负债
+        netAssets = totalAssets.subtract(grossLiability);
+        Log.d(TAG, "create_asset_item: netAssets = " + netAssets);
+    }
+
+    /**
+     * @parameter str_bankName  银行名称
+     * @parameter str_message   备注信息
+     * @parameter bd_money      余额
+     * @description 动态加载布局
+     * @Time 2019/7/24 11:21
+     */
+    public void dynamicLoadingLayout(String str_bankName, String str_message, BigDecimal bd_money) {
+        //侧滑删除编写所需布局
+        ViewGroup.LayoutParams layoutParams_swipmenu = Swip_menu_home.getLayoutParams();//找到已有的侧滑菜单布局
+        SwipeMenuLayout swipmenu = new SwipeMenuLayout(getContext());
+        swipmenu.setBackgroundResource(R.drawable.line_block);//第一层布局设置为白色带边框背景
+        LinearLayout.LayoutParams swipmenu_Params = new LinearLayout.LayoutParams(layoutParams_swipmenu.width, layoutParams_swipmenu.height);
+        swipmenu.setLayoutParams(swipmenu_Params);
+        //侧滑删除编写完毕
+
+        //动态编写第一层布局，水平方向
+        ViewGroup.LayoutParams layoutParams_first = Lin_example_item.getLayoutParams();//获取已有的动态第一层布局
+        LinearLayout first = new LinearLayout(getContext());//动态创建第一层的布局
+        //设置第一层布局的大小等属性
+        LinearLayout.LayoutParams first_Params = new LinearLayout.LayoutParams(layoutParams_first.width, layoutParams_first.height);
+        first_Params.setMargins(0, 16, 0, 0);//设置边距
+        first.setLayoutParams(first_Params);//将上面的大小和边距属性赋给第一层布局
+        //第一层布局编写完毕
+
+        //第二层布局，垂直的放置银行图案和银行文字的布局
+        ViewGroup.LayoutParams layoutParams_second = Lin_second_item.getLayoutParams();//获取已有的动态第一层布局
+        LinearLayout twice = new LinearLayout(getContext());//动态创建第二层的布局
+        //设置第二层布局的大小等属性
+        LinearLayout.LayoutParams twice_Params = new LinearLayout.LayoutParams(layoutParams_second.width, layoutParams_second.height);
+        twice.setOrientation(LinearLayout.VERTICAL);//设置为垂直方向布局
+        twice.setLayoutParams(twice_Params);//将上面的大小和边距属性赋给第二层布局
+        //第二层布局编写完毕
+
+        //银行图案编写
+        ImageButton bank = new ImageButton(getContext());
+        ViewGroup.LayoutParams layoutParams_bank = Img_example_bank.getLayoutParams();//获取已有的银行图案布局
+        LinearLayout.LayoutParams bank_Params = new LinearLayout.LayoutParams(layoutParams_bank.width, layoutParams_bank.height);
+        bank_Params.gravity = Gravity.CENTER;
+        bank.setLayoutParams(bank_Params);//将银行图案加到它自己的布局中
+        switch (str_bankName) {
+            case "交通银行":
+                bank.setBackgroundResource(R.drawable.bank_bcm);//给银行图案引用资源图片
+                break;
+            case "工商银行":
+                bank.setBackgroundResource(R.drawable.bank_icbc);//给ImageView加上图片资源
+                break;
+            case "招商银行":
+                bank.setBackgroundResource(R.drawable.bank_cmb);//给ImageView加上图片资源
+                break;
+            case "中国银行":
+                bank.setBackgroundResource(R.drawable.bank_boc);//给ImageView加上图片资源
+                break;
+            case "农业银行":
+                bank.setBackgroundResource(R.drawable.bank_abc);//给ImageView加上图片资源
+                break;
+            case "浦发银行":
+                bank.setBackgroundResource(R.drawable.bank_spdb);//给ImageView加上图片资源
+                break;
+            case "建设银行":
+                bank.setBackgroundResource(R.drawable.bank_ccb);//给ImageView加上图片资源
+                break;
+            case "微信":
+                bank.setBackgroundResource(R.drawable.bank_wechat);//给ImageView加上图片资源
+                break;
+            case "支付宝":
+                bank.setBackgroundResource(R.drawable.bank_alipay);//给ImageView加上图片资源
+                break;
+        }
+        //银行按钮编写完毕
+
+        //银行名称编写
+        TextView bank_name = new TextView(getContext());
+        ViewGroup.LayoutParams layoutParams_bank_name = tv_example_bank_name.getLayoutParams();//获取已有的银行名称布局
+        LinearLayout.LayoutParams bank_name_Params = new LinearLayout.LayoutParams(layoutParams_bank_name.width, layoutParams_bank_name.height);
+        bank_name_Params.gravity = Gravity.CENTER;
+        bank_name.setLayoutParams(bank_name_Params);//将银行名称加到它自己的布局中
+        bank_name.setText(str_bankName);//给银行名称设置文字内容
+        bank_name.setTextColor(getResources().getColor(R.color.black, null));
+        bank_name.setTypeface(Typeface.SANS_SERIF, Typeface.BOLD);//字体加粗
+        bank_name.setTextSize(11);
+        linStrName.add(index, str_bankName);
+        //银行名称编写完毕
+
+        //余额文字显示编写
+        TextView balance = new TextView(getContext());
+        ViewGroup.LayoutParams layoutParams_balance = tv_example_balance.getLayoutParams();//获取已有的余额名称布局
+        LinearLayout.LayoutParams balance_Params = new LinearLayout.LayoutParams(layoutParams_balance.width, layoutParams_balance.height);
+        balance_Params.gravity = Gravity.CENTER;
+        balance.setLayoutParams(balance_Params);//将余额加到它自己的布局中
+        balance.setText("￥" + bd_money);//给余额设置文字内容
+        balance.setTextColor(getResources().getColor(R.color.black, null));
+        balance.setTypeface(Typeface.SANS_SERIF, Typeface.BOLD);//字体加粗
+        balance.setTextSize(20);
+        //余额编写完毕
+
+        //备注信息编写
+        TextView message = new TextView(getContext());
+        ViewGroup.LayoutParams layoutParams_message = tv_example_balance.getLayoutParams();//获取已有的余额名称布局
+        LinearLayout.LayoutParams message_Params = new LinearLayout.LayoutParams(layoutParams_message.width, layoutParams_message.height);
+        message_Params.gravity = Gravity.CENTER;
+        message.setLayoutParams(message_Params);//将余额加到它自己的布局中
+        message.setText(str_message);//给余额设置文字内容
+        message.setTextColor(getResources().getColor(R.color.black, null));
+        message.setTextSize(15);
+        linStrMes.add(index, str_message);
+        //备注信息编写完毕
+
+        //侧滑按钮编写
+        Button delete = new Button(getContext());
+        linBtnDel.add(index, delete);
+        ViewGroup.LayoutParams layoutParams_delete = btn_delete_home.getLayoutParams();//找到已有的删除按钮布局
+        LinearLayout.LayoutParams delete_Params = new LinearLayout.LayoutParams(layoutParams_delete.width, layoutParams_delete.height);
+        delete.setLayoutParams(delete_Params);
+        delete.setText("删除");
+        delete.setBackgroundColor(getResources().getColor(R.color.red, null));//背景色设置为红色
+        delete.setTextSize(18);
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                delete_btn_wish(v);
+            }
+        });
+        //删除按钮编写完毕
+
+        twice.addView(bank);//将银行图案加到第二层布局中
+        twice.addView(bank_name);//将银行名称加入到第二层布局中
+        first.addView(twice);//将第二层加入到第一层中
+        first.addView(balance);//将余额加入到第一层中
+        first.addView(message);//将备注信息加入到第一层中
+        swipmenu.addView(first);//将第一层加入到侧滑层中
+        swipmenu.addView(delete);//将删除按钮加入到侧滑层
+        Lin_asset_item.addView(swipmenu);//将侧滑层加入总布局中
     }
 
     /**
@@ -431,7 +470,7 @@ public class fragment_home extends Fragment {
                 linStrMes.remove(index);
                 double money = LitePal.sum(AssetAccount.class, "AssetAccountMoney", double.class);
                 tv_net_assets.setText("净资产￥" + money);
-                tv_all_assets.setText("总资产￥" + money);
+                tv_total_assets.setText("总资产￥" + money);
                 break;
             }
         }
@@ -484,5 +523,4 @@ public class fragment_home extends Fragment {
             });
         }
     }
-
 }//Fragment类结束
